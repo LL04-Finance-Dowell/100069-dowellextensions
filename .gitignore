@@ -1,3 +1,11 @@
+# DowExtension
+icons/
+.working_scrap
+icons/
+sample
+.dowlogo1
+.dowlogo2
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -25,7 +33,7 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
+
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
