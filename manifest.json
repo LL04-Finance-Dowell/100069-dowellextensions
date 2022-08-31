@@ -1,0 +1,25 @@
+{
+  "name": "UX LivingLab",
+  "description": "Manage Your UX LivingLab Account",
+  "version": "1.0",
+   "author": "Adeleke Omotayo Jude",
+  "action": {
+    "default_icon": "dowell-logo.png",
+    "default_popup": "popup.html",
+    "default_title": "Manage Your UX LivingLab Account"
+
+  },
+
+  "content_scripts": [{
+    "css": ["style.css"],
+    "js": ["popup.js"],
+    "all_frames": true,
+     "run_at": "document_end",
+     "matches": ["https://*/"]
+  }],
+  "manifest_version": 3,
+  "permissions": ["tabs", "activeTab", "scripting"]
+
+}
+  
+
