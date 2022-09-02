@@ -21,13 +21,14 @@ team.addEventListener('click', (event)=>{
  	event.preventDefault()
 
  	let divy = document.createElement('center');
- 	let wordo = document.createElement('h2');
+ 	let wordo = document.createElement('h1');
  	let brk = document.createElement('br');
  	let descLink = document.createElement('iframe');
  	//let descTag = document.createElement('span');
  	
  	wordo.style.color = '#018749';
  	wordo.innerHTML = 'Dowell Team';
+    wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
  	descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/';
  	//descTag.innerHTML = 'Job Portal';
  	//descLink.appendChild(descTag);
@@ -49,7 +50,7 @@ team.addEventListener('click', (event)=>{
 prod.addEventListener('click', (event)=>{
     event.preventDefault()
 
-    let wordo = document.createElement('h2');
+    let wordo = document.createElement('h1');
     wordo.innerHTML = 'Products';
     let br = document.createElement('br');
     wordo.style.color = '#018749';

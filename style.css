@@ -80,7 +80,12 @@ img {
 	border-top-right-radius: 15px;
 	border-bottom-right-radius: 15px; 
 }
-
+img:hover {
+		 background-color: burlywood;
+}
+img:active {
+  background-color: mediumslateblue;
+}
 
 ul {
 	 list-style-type: none;
@@ -97,11 +102,11 @@ a {
 
 a:hover {
    cursor: pointer;
-   /*color: ;*/
+   background-color: red;
 }
 
 a:active {
-  background-color: ;
+  background-color: mediumslateblue;
 }
 
 a:visited {
