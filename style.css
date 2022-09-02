@@ -6,6 +6,8 @@ body {
 	width: 350px;
 	overflow: hidden;
 
+	/*height:  430px;*/
+
 }
 #grid-container{
 			display: grid;
@@ -14,6 +16,7 @@ body {
  			grid-gap: 50px;
 
  			float: right;
+ 			
 
 }
 #grid1{
@@ -25,6 +28,8 @@ body {
 	margin-left: 2px;
 	border-radius: 20px;
 
+	height:  400px;
+
 	/*display: none*/;
 
 }
@@ -35,13 +40,30 @@ body {
 	  width: 100px;
 	  margin-left: 50px;
 
-	  height: 380px;	  
+	  height: 380px;
+
+	  margin-top: -18px;
+
   	/*grid-column-gap: 300px;
   	grid-row-gap: 15px;*/
 
   	/*float: right;*/
 		/*font-family: Andale Mono, monospace, Courier New, monospace;*/  	  
 } 
+
+/*
+#firstView, body {		
+	  width: 50px;
+	  margin-left: 50px;
+
+	  height: 380px;
+	  margin-top: -5px;
+	  float: right;
+
+
+}*/
+
+
 svg, img {
       float: right;
       height: 50px;

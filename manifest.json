@@ -9,7 +9,9 @@
     "default_title": "Manage Your UX LivingLab Account"
 
   },
-
+  "background": {
+    "service_worker": "background.js"  
+  },
   "content_scripts": [{
     "css": ["style.css"],
     "js": ["popup.js"],
