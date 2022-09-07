@@ -1,10 +1,13 @@
-
+html{
+	scroll-behavior: smooth;
+	}
 body {
 
 	/*height: 100px;*/
 	background-color: beige;
-	width: 350px;
+	width: 350px; 
 	overflow: hidden;
+
 
 	/*height:  430px;*/
 
@@ -17,10 +20,12 @@ body {
 
  			float: right;
  			
+ 			overflow: hidden; 			
+ 			/*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
 
 }
 #grid1{
-	background-color: whitesmoke;
+  background-color: whitesmoke;
 	border: 5px;
 	/*border-style: dotted;*/
 
@@ -30,8 +35,7 @@ body {
 
 	height:  400px;
 
-	/*display: none*/;
-
+	visibility: hidden;
 }
 
 #grid2 {
@@ -42,7 +46,7 @@ body {
 
 	  height: 380px;
 
-	  margin-top: -18px;
+	  /*margin-top: -28px;*/
 
   	/*grid-column-gap: 300px;
   	grid-row-gap: 15px;*/
@@ -73,19 +77,14 @@ svg, img {
 
 img {
 	border: 0px;
-	height: 40px;
+	height: 35px;
 	
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	border-top-right-radius: 15px;
 	border-bottom-right-radius: 15px; 
 }
-img:hover {
-		 background-color: burlywood;
-}
-img:active {
-  background-color: mediumslateblue;
-}
+
 
 ul {
 	 list-style-type: none;
@@ -102,7 +101,7 @@ a {
 
 a:hover {
    cursor: pointer;
-   background-color: red;
+   background-color: beige;
 }
 
 a:active {
