@@ -1,3 +1,4 @@
+/*
 chrome.action.onClicked.addListener(async(tab)=>{
   try {
     const jquery = await (await fetch('https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js')).text();
@@ -50,3 +51,4 @@ chrome.action.onClicked.addListener(async(tab)=>{
   }
 }
 );
+*/

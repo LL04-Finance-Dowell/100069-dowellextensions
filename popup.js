@@ -13,7 +13,13 @@ let list = document.createDocumentFragment();
 
 window.onload = (event) => {
      body[0].style.width = '62px';
+     body[0].style.backgroundColor = '#f2f3f4';     
      console.log('PAGE DID LOAD');
+
+
+
+
+
 };
 
 function HideScrollbar() {
@@ -25,9 +31,10 @@ function HideScrollbar() {
 
 team.addEventListener('click', (event)=>{
  	event.preventDefault()
-
+    grid1.replaceChildren()    
  	let divy = document.createElement('center');
- 	let wordo = document.createElement('h1');
+    let brk2 = document.createElement('br');
+ 	let wordo = document.createElement('h2');
  	let brk = document.createElement('br');
  	let descLink = document.createElement('iframe');
  	//let descTag = document.createElement('span');
@@ -38,8 +45,10 @@ team.addEventListener('click', (event)=>{
  	descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/';
  	//descTag.innerHTML = 'Job Portal';
  	//descLink.appendChild(descTag);
- 	descLink.height = '700px'; 	
- 	descLink.width = '270px'; 	
+    descLink.height = '700px'; 	
+ 	descLink.width = '270px';
+
+    divy.appendChild(brk2);
  	divy.appendChild(wordo);
  	divy.appendChild(brk);
  	list.appendChild(divy);
@@ -48,23 +57,30 @@ team.addEventListener('click', (event)=>{
 
  	//grid1.style.display = 'block';
     grid1.style.visibility = 'visible';
+    grid2.style.backgroundColor = 'transparent';
+    grid1.style.overflow = 'scroll';
     body[0].style.width = '350px'; 
+    body[0].style.backgroundColor='beige';
     HideScrollbar();
  	
- });
+ }, {once : true});
 
 
 
 prod.addEventListener('click', (event)=>{
     event.preventDefault()
-
-    let wordo = document.createElement('h1');
+    grid1.replaceChildren()
+    
+    let br2 = document.createElement('br');
+    let wordo = document.createElement('h2');    
     wordo.innerHTML = 'Products';
     let br = document.createElement('br');
     wordo.style.color = '#018749';
     wordo.style.textAlign = 'center';
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
     let divy = document.createElement('center');
+    
+
     divy.style.marginTop = '25px';
     divy.style.marginLeft = '50px';
     //let frame = document.createElement('iframe');
@@ -105,23 +121,52 @@ prod.addEventListener('click', (event)=>{
     image3.src = 'https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-storyboard-filmmaking-flaticons-flat-flat-icons.png';
     image3.title = 'Live UX Storyboard';
 
-
-
-    wordo.appendChild(br);
+    //wordo.appendChild(br); 
+    divy.appendChild(wordo);
+    
     descLink.appendChild(image);
     descLink1.appendChild(image1);    
     descLink2.appendChild(image2);
-    descLink3.appendChild(image3);
+    descLink3.appendChild(image3); 
     divy.appendChild(descLink);
     divy.appendChild(descLink1);
     divy.appendChild(descLink2);
-    divy.appendChild(descLink3);
-    list.appendChild(wordo);
+    divy.appendChild(descLink3);    
+
+    //list.appendChild(br2)
+    //list.appendChild(wordo);
     list.appendChild(divy); 
 
     grid1.appendChild(list);
     grid1.style.visibility = 'visible';
-    body[0].style.width = '350px';    
+    grid2.style.backgroundColor = 'transparent';
+    body[0].style.width = '350px';
+    body[0].style.backgroundColor='beige';    
 
-});
+}, {once : true});
+
+
+chat.addEventListener('click', (event)=>{
+  event.preventDefault()
+  grid1.replaceChildren()
+  let divy = document.createElement('center');
+  let brk2 = document.createElement('br');
+  let wordo = document.createElement('h2');
+  
+  wordo.style.color = '#018749';
+  wordo.innerHTML = 'Chat Rooms';
+  wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';   
+  divy.appendChild(brk2);
+  divy.appendChild(wordo);
+  list.appendChild(divy);
+  grid1.appendChild(list);
+
+  grid1.style.visibility = 'visible';
+  grid2.style.backgroundColor = 'transparent';
+  body[0].style.width = '350px';
+  body[0].style.backgroundColor='beige';  
+    
+ }, {once : true});
+ 
+
 
