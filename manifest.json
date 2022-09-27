@@ -20,7 +20,7 @@
      "matches": ["https://*/"]
   }],
   "manifest_version": 3,
-  "permissions": ["tabs", "activeTab", "scripting"]
+  "permissions": ["storage", "tabs", "activeTab", "scripting"]
 
 }
   

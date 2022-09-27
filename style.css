@@ -68,6 +68,9 @@ svg, img {
 
       /*margin-bottom: 20px;*/
    }
+svg:hover {
+	background-color: #a8e4a0;
+}   
 
 img {
 	border: 0px;
@@ -109,4 +112,8 @@ a:active {
 
 a:visited {
   color: #018749;
+}
+
+.chat-btn:hover {
+	background-color: #a8e4a0;
 }
