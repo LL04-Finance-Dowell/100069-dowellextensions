@@ -176,7 +176,7 @@ chat.addEventListener('click', (event)=>{
   btn.style.marginBottom = '50px';
   btn.style.marginRight = '50px';
   btn.style.marginLeft = '50px';
-  btn.style.borderRadius = '15px';
+  btn.style.borderRadius = '6px';
   btn.textContent = 'Click To See';
 
   divy.appendChild(brk2);
@@ -198,37 +198,36 @@ chat.addEventListener('click', (event)=>{
                 event.preventDefault()
                 grid1.replaceChildren()
                 
-                let url = 'http://100069.pythonanywhere.com/chat/get-rooms/';
-                fetch(url, {
-                      method: 'GET',
-                      headers: {
-                          'Accept': 'application/json, text/plain, */*',
-                          'content-type':'application/json'
-                            },
-                            })
-                .then(res => res.json())
-                .then((data)=>{
-                    window.htmlString = '';                    
-                        data.map(function(room){
-                            //window.apiRooms = room.room_name;
-                            htmlString += `<hr><p></p><div style="margin-bottom: 8px; 
-                                    padding: 8px; width: 256px;
-                                    background-color: lightgray;
-                                    border: 2px solid; 
-                                    border-radius: 4px;
-                                    margin-left: 5px;
-                                    margin-top: 5px;"><a href=''>${room.room_name}</a></div>`;  
-                            
-                            grid1.innerHTML = htmlString;                    
-                            grid1.style.visibility = 'visible';
-                            grid2.style.backgroundColor = 'transparent';
-                            
-                            console.log(room.room_name)                            
-                               })
-                        
-                })
-                .catch(error => {console.log(error)})
+                let divy = document.createElement('center');
+                let brk = document.createElement('br');
+                let wordo = document.createElement('h2');
+                let brk2 = document.createElement('br');
+                let descLink = document.createElement('iframe');                
+
+                wordo.style.color = '#018749';
+                wordo.textContent = 'Enter Room';
+                wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
+                descLink.src = 'https://ll04-finance-dowell.github.io/100069-dowell-chat-client/';
+               
+                descLink.height = '700px'; 	
+                descLink.width = '270px';                
+                descLink.loading = 'lazy';
+
+                divy.appendChild(brk);
+                divy.appendChild(wordo);
+                divy.appendChild(brk2);
+                list.appendChild(divy);
+                list.appendChild(descLink);
+                grid1.appendChild(list);
                 
+                grid1.style.visibility = 'visible';
+                grid2.style.backgroundColor = 'transparent';
+                grid1.style.overflow = 'scroll';
+                body[0].style.width = '350px'; 
+                body[0].style.backgroundColor='beige';
+                //HideScrollbar(); 	
+
+                             
             }, {once : true}); 
 
  }, {once : true});

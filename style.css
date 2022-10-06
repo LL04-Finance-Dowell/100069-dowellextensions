@@ -48,8 +48,7 @@ body {
 	  width: 100px;
 	  margin-left: 50px;
 
-	  height: 380px;	 
-
+	  height: 380px;	       
 	  /*margin-top: -28px;*/
 
   	/*grid-column-gap: 300px;
@@ -84,7 +83,7 @@ img {
 
 h1, h2 {
 	background-color:#a8e4a0; /*rgb(119,221,119);*/
-	border-radius: 20px;
+	border-radius: 6px;
 	width: 200px;
 }
 
@@ -93,6 +92,8 @@ ul {
 	 list-style-type: none;
 	  margin: 10px;
 	  padding: 10px;
+    
+    /*border: 2px solid;*/
 
 }
 a {
