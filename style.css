@@ -62,14 +62,22 @@ body {
 svg, img {
       float: right;
       height: 50px;
-      width: auto;
+      width: auto; 
 
-
+          
       /*margin-bottom: 20px;*/
    }
 svg:hover {
 	background-color: #a8e4a0;
 }   
+/*
+svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: 0.1s;
+}*/
 
 img {
 	border: 0px;
@@ -78,7 +86,7 @@ img {
 	border-top-left-radius: 15px;
 	border-bottom-left-radius: 15px;
 	border-top-right-radius: 15px;
-	border-bottom-right-radius: 15px; 
+	border-bottom-right-radius: 15px;
 }
 
 h1, h2 {
@@ -99,7 +107,7 @@ ul {
 a {
   
   color: #018749;
-  text-decoration: none;
+  text-decoration: none;  
 }
 
 a:hover {
@@ -112,7 +120,7 @@ a:active {
 }
 
 a:visited {
-  color: #018749;
+  color: #018749; 
 }
 
 .chat-btn:hover {

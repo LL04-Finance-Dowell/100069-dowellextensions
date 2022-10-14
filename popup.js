@@ -13,6 +13,12 @@ let enter = document.querySelector('#enter');
 let list = document.createDocumentFragment();
 
 /*
+let forSvg = document.querySelector('#svg1');
+let forSvg2 = document.querySelector('#svg2');
+*/
+
+
+/*
 chrome.storage.sync.set({key: value}, function() {
   console.log('Value is set to ' + value);
 });
@@ -22,10 +28,14 @@ chrome.storage.sync.get(['key'], function(result) {
 });
 */
 
+
+
 window.onload = (event) => {
+
      body[0].style.width = '62px';
      body[0].style.backgroundColor = '#f2f3f4';     
      console.log('PAGE DID LOAD');
+     
 };
 
 function HideScrollbar() {
@@ -37,7 +47,8 @@ function HideScrollbar() {
 
 team.addEventListener('click', (event)=>{
  	event.preventDefault()
-    grid1.replaceChildren()    
+    grid1.replaceChildren()
+    localStorage.setItem('retainView', grid1.innerHTML);
  	let divy = document.createElement('center');
     let brk2 = document.createElement('br');
  	let wordo = document.createElement('h2');
@@ -60,15 +71,18 @@ team.addEventListener('click', (event)=>{
  	divy.appendChild(brk);
  	list.appendChild(divy);
  	list.appendChild(descLink);
- 	grid1.appendChild(list);
-
+ 	grid1.appendChild(list); 
+    
  	//grid1.style.display = 'block';
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
     body[0].style.width = '350px'; 
     body[0].style.backgroundColor='beige';
-    HideScrollbar(); 	
+    HideScrollbar(); 
+    
+     
+    localStorage.getItem('retainView');
 
  }, {once : true});   
 
@@ -149,6 +163,7 @@ prod.addEventListener('click', (event)=>{
     list.appendChild(divy); 
 
     grid1.appendChild(list);
+    
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     body[0].style.width = '350px';
@@ -159,7 +174,8 @@ prod.addEventListener('click', (event)=>{
 
 chat.addEventListener('click', (event)=>{
   event.preventDefault()
-  grid1.replaceChildren()
+  grid1.replaceChildren()  
+  
 
   let divy = document.createElement('center');
   let brk2 = document.createElement('br');
@@ -184,6 +200,10 @@ chat.addEventListener('click', (event)=>{
   divy.appendChild(btn);
   list.appendChild(divy);
   grid1.appendChild(list);
+    
+  localStorage.setItem('retainView', grid1.innerHTML); 
+  localStorage.getItem('retainView');
+    
 
   grid1.style.visibility = 'visible';
   grid2.style.backgroundColor = 'transparent';
@@ -219,6 +239,10 @@ chat.addEventListener('click', (event)=>{
                 list.appendChild(divy);
                 list.appendChild(descLink);
                 grid1.appendChild(list);
+      
+                localStorage.setItem('retainView', grid1); 
+                localStorage.getItem('retainView');
+
                 
                 grid1.style.visibility = 'visible';
                 grid2.style.backgroundColor = 'transparent';
@@ -227,8 +251,11 @@ chat.addEventListener('click', (event)=>{
                 body[0].style.backgroundColor='beige';
                 //HideScrollbar(); 	
 
-                             
-            }, {once : true}); 
+                     
+      
+            }, {once : true});  
 
+            
+    
  }, {once : true});
- 
+                                                     

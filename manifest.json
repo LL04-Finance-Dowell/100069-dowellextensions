@@ -9,9 +9,6 @@
     "default_title": "Manage Your UX LivingLab Account"
 
   },
-  "background": {
-    "service_worker": "background.js"  
-  },
   "content_scripts": [{
     "css": ["style.css"],
     "js": ["popup.js"],
@@ -20,7 +17,7 @@
      "matches": ["https://*/"]
   }],
   "manifest_version": 3,
-  "permissions": ["storage", "tabs", "activeTab", "scripting"]
+  "permissions": ["tabs"]
 
 }
   
