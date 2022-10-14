@@ -16,8 +16,7 @@
      "run_at": "document_end",
      "matches": ["https://*/"]
   }],
-  "manifest_version": 3,
-  "permissions": ["tabs"]
+  "manifest_version": 3  
 
 }
   
