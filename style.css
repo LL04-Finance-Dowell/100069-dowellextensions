@@ -67,9 +67,14 @@ svg, img {
           
       /*margin-bottom: 20px;*/
    }
-svg:hover {
-	background-color: #a8e4a0;
-}   
+
+#forImg:hover{
+    width: 60px;
+     margin-right: -20px; 
+     transition: 0.1s;
+    height: 50px;
+}
+   
 /*
 svg path {
   fill: none;
@@ -111,18 +116,53 @@ a {
 }
 
 a:hover {
-   cursor: pointer;
-   background-color: beige;
+   cursor: pointer;   
+   background-color: beige;  
 }
 
-a:active {
-  background-color: mediumslateblue;
-}
-
-a:visited {
-  color: #018749; 
-}
 
 .chat-btn:hover {
 	background-color: #a8e4a0;
+}
+#svg1:hover {
+    width: 60px;
+    margin-right: -20px; 
+    transition: 0.1s;
+    fill: #018749;
+}
+#svg2:hover {
+    width: 60px;
+    margin-right: -20px;
+     transition: 0.1s;
+    fill: #018749;
+}
+#svg3:hover {
+    width: 60px;
+    margin-right: -20px; 
+     transition: 0.1s;
+    fill: #018749;
+}
+#svg4:hover {
+    width: 60px;
+    margin-right: -20px; 
+     transition: 0.1s;
+    fill: #018749;
+}
+#svg5:hover {
+    width: 60px;
+    margin-right: -20px;
+     transition: 0.1s;
+    fill: #018749;
+}
+#svg6:hover {
+    width: 60px;
+    margin-right: -20px; 
+     transition: 0.1s;
+    fill: #018749;
+}
+#svg7:hover {
+    width: 60px;
+    margin-right: -20px; 
+     transition: 0.1s;
+    fill: #018749;
 }
