@@ -22,7 +22,6 @@ body {
  			
  			overflow: hidden; 
  			/*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
-
 }
 #grid1{
   background-color: white;
@@ -165,4 +164,22 @@ a:hover {
     margin-right: -20px; 
      transition: 0.1s;
     fill: #018749;
+}
+.loader{
+  border: 16px solid #f3f3f3;
+  border-radius: 250%;
+  border-top: 16px solid #a8e4a0;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

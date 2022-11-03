@@ -1,6 +1,6 @@
 {
   "name": "UX LivingLab",
-  "description": "Manage Your UX LivingLab Account",
+  "description": "In-house browser extension to manage users' UX LivingLab Account, increase overall productivity, and improve user exprience. It includes options such as realtime notification of new company products, easy login/logout for developers and other staff members, chat, logs, and profile setting. There are no seecurity risks. Please refer to the screenshot directory for sample pictures.",
   "version": "1.0",
    "author": "Adeleke Omotayo Jude",
   "action": {

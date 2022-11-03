@@ -46,15 +46,13 @@ team.addEventListener('click', (event)=>{
     let brk2 = document.createElement('br');
  	let wordo = document.createElement('h2');
  	let brk = document.createElement('br');
- 	let descLink = document.createElement('iframe');
- 	//let descTag = document.createElement('span');
+ 	let descLink = document.createElement('iframe'); 	
  	
  	wordo.style.color = '#018749';
  	wordo.textContent = 'Dowell Team';
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
  	descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/';
- 	//descTag.innerHTML = 'Job Portal';
- 	//descLink.appendChild(descTag);
+ 	
     descLink.height = '700px'; 	
  	descLink.width = '270px';
     descLink.loading = 'lazy';
@@ -82,63 +80,29 @@ prod.addEventListener('click', (event)=>{
     event.preventDefault()
     grid1.replaceChildren()
     
-    let br2 = document.createElement('br');
+    
+    //let br2 = document.createElement('br');
     let wordo = document.createElement('h2');    
     wordo.textContent = 'Products';
     let br = document.createElement('br');
     wordo.style.color = '#018749';
     wordo.style.textAlign = 'center';
+    wordo.style.marginLeft = '-50px';    
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
     let divy = document.createElement('center');
+    let loader = document.createElement('div');
+    let secondDivEle = document.createElement('div');
     
 
     divy.style.marginTop = '25px';
     divy.style.marginLeft = '50px';
-    //let frame = document.createElement('iframe');
-    let descLink = document.createElement('a');
-
-    descLink.href = 'https://ll07-team-dowell.github.io/DowellJobPortal/';
-    descLink.target = '_blank';
-    descLink.style.float = 'left';
-    descLink.style.padding = '20px';
-    let image = document.createElement('img');
-    image.src = "https://img.icons8.com/windows/96/000000/design-portal.png"
-    image.title = 'Dowell Portal';
-    image.loading = 'lazy';    
+    
+    loader.className = 'loader';
+    loader.style.display = 'hidden';
+    secondDivEle.className = 'subDiv';
         
-    let descLink1 = document.createElement('a');
-    descLink1.href = 'https://100069.pythonanywhere.com';
-    descLink1.target = '_blank';
-    descLink1.style.float = 'left';
-    descLink1.style.padding = '20px';
-    let image1 = document.createElement('img');
-    image1.src = 'https://img.icons8.com/doodle/96/000000/messaging-.png';
-    image1.title = 'Dowell Chat';
-    image1.loading = 'lazy';
-    
-    let descLink2 = document.createElement('a');
-    descLink2.href = 'https://100035.pythonanywhere.com/nps-admin';
-    descLink2.target = '_blank';
-    descLink2.style.float = 'left';
-    descLink2.style.padding = '20px';
-    let image2 = document.createElement('img');
-    image2.src = 'https://img.icons8.com/avantgarde/100/000000/ruler.png';
-    image2.title = 'NPS Scale';
-    image2.loading = 'lazy';
-
-    let descLink3 = document.createElement('a');
-    descLink3.href = 'https://liveuxstoryboard.com/';
-    descLink3.target = '_blank';
-    descLink3.style.float = 'left';
-    descLink3.style.padding = '20px';
-    let image3 = document.createElement('img');
-    image3.src = 'https://img.icons8.com/external-flaticons-flat-flat-icons/64/000000/external-storyboard-filmmaking-flaticons-flat-flat-icons.png';
-    image3.title = 'Live UX Storyboard';
-    image3.loading = 'lazy';
-
-    //wordo.appendChild(br); 
     divy.appendChild(wordo);
-    
+    /*
     descLink.appendChild(image);
     descLink1.appendChild(image1);    
     descLink2.appendChild(image2);
@@ -146,19 +110,48 @@ prod.addEventListener('click', (event)=>{
     divy.appendChild(descLink);
     divy.appendChild(descLink1);
     divy.appendChild(descLink2);
-    divy.appendChild(descLink3);    
-
-    //list.appendChild(br2)
-    //list.appendChild(wordo);
+    divy.appendChild(descLink3);
+    */
+    divy.appendChild(loader);
+    divy.appendChild(secondDivEle);
     list.appendChild(divy); 
-
     grid1.appendChild(list);
-    
+       
+    let appendSubDiv = document.querySelector('.subDiv');
+    fetch('http://100069.pythonanywhere.com/products/products/')
+    .then(resp=> resp.json()).then(data=> {
+            let htmlString = '';
+            let iconArray = [
+                    'https://img.icons8.com/bubbles/100/000000/collaboration.png',
+                    'https://img.icons8.com/bubbles/100/000000/inspection.png',
+                    'https://img.icons8.com/bubbles/100/000000/employee-card.png',
+                    'https://img.icons8.com/bubbles/100/000000/process.png',
+                    'https://img.icons8.com/bubbles/100/000000/survey.png',
+                    'https://img.icons8.com/bubbles/100/000000/define-location.png',
+                    'https://img.icons8.com/bubbles/100/000000/mind-map.png',
+                    'https://img.icons8.com/bubbles/100/40C057/link-company-parent.png',
+                    'https://img.icons8.com/bubbles/100/000000/project-setup.png'
+                                    ]
+            
+            if(appendSubDiv.childNodes.length === 0){
+                loader.style.display = 'block';
+            }                       
+            data.map(function(pdct){
+                let icon = iconArray[Math.floor(Math.random()*iconArray.length)];
+                htmlString += `<div style='float: left'>
+                            <b><a href='${pdct.product_url}' target='_blank'>${pdct.product_name}</a></b>
+                            <img src="${icon}" /><hr></div>`                
+            })            
+            appendSubDiv.innerHTML = htmlString;               
+            loader.style.display = 'none';
+    });
+      
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
+    grid1.style.overflow = 'scroll';
     body[0].style.width = '350px';
     body[0].style.backgroundColor='beige';    
-
+    
 }, {once : true});
 
 
