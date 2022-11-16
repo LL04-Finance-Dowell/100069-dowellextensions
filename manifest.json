@@ -1,10 +1,15 @@
 {
   "name": "UX LivingLab",
-  "description": "In-house browser extension to manage users' UX LivingLab Account, increase overall productivity, and improve user exprience. It includes options such as realtime notification of new company products, easy login/logout for developers and other staff members, chat, logs, and profile setting. There are no seecurity risks. Please refer to the screenshot directory for sample pictures.",
-  "version": "1.0",
-   "author": "Adeleke Omotayo Jude",
+  "description": "Extension to manage your UX LivingLab account. It comes with options like notification, login/logout, chat, logs, and setting.",
+  "version": "1.1",
+  "icons": {
+     "16": "/images/16.png",
+     "48": "/images/48.png",
+     "128": "/images/128.png"
+        },
+  "author": "Adeleke Omotayo Jude",
   "action": {
-    "default_icon": "dowell-logo.png",
+    "default_icon": "logo.png",
     "default_popup": "popup.html",
     "default_title": "Manage Your UX LivingLab Account"
 
@@ -14,10 +19,9 @@
     "js": ["popup.js"],
     "all_frames": true,
      "run_at": "document_end",
-     "matches": ["https://*/"]
+     "matches": ["http://127.0.0.1.zxqpopw/*"]
   }],
-  "manifest_version": 3  
+  "manifest_version": 3
 
 }
-  
 

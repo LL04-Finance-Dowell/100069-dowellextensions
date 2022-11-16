@@ -1,21 +1,19 @@
 html{
 	scroll-behavior: smooth;
 	}
-body {
+
+body{
 
 	/*height: 100px;*/
 	background-color: beige;
 	width: 350px; 
 	overflow: hidden;
-
-
-	/*height:  430px;*/
-
 }
+
 #grid-container{
 			display: grid;
 			grid-template-columns: 150px 150px;
-  		grid-template-rows: auto auto;
+  		    grid-template-rows: auto auto;
  			grid-gap: 50px;
 
  			float: right;

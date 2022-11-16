@@ -12,22 +12,10 @@ let chat  = document.querySelector('#chat');
 let enter = document.querySelector('#enter');
 let list = document.createDocumentFragment();
 
-/*
-chrome.storage.sync.set({key: value}, function() {
-  console.log('Value is set to ' + value);
-});
-
-chrome.storage.sync.get(['key'], function(result) {
-  console.log('Value currently is ' + result.key);
-});
-*/
-
-
 
 window.onload = (event) => {
-
-     body[0].style.width = '62px';
-     body[0].style.backgroundColor = '#f2f3f4';     
+     body[0].style.width = '62px';     
+     body[0].style.backgroundColor = '#f2f3f4';      
      console.log('PAGE DID LOAD');
      
 };
@@ -41,12 +29,15 @@ function HideScrollbar() {
 team.addEventListener('click', (event)=>{
  	event.preventDefault()
     grid1.replaceChildren()
-    
- 	let divy = document.createElement('center');
+
+ 	let stylo = document.createElement('style');
+    stylo.innerHTML = `html::-webkit-scrollbar {width: 10px}`;
+    document.head.appendChild(stylo);
+    let divy = document.createElement('center');
     let brk2 = document.createElement('br');
  	let wordo = document.createElement('h2');
- 	let brk = document.createElement('br');
- 	let descLink = document.createElement('iframe'); 	
+ 	let brk = document.createElement('br'); 	
+    let descLink = document.createElement('iframe'); 	
  	
  	wordo.style.color = '#018749';
  	wordo.textContent = 'Dowell Team';
@@ -64,13 +55,14 @@ team.addEventListener('click', (event)=>{
  	list.appendChild(descLink);
  	grid1.appendChild(list); 
     
- 	//grid1.style.display = 'block';
+ 	
+
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
     body[0].style.width = '350px'; 
     body[0].style.backgroundColor='beige';
-    HideScrollbar(); 
+    //HideScrollbar(); 
 
  }, {once : true});   
 
@@ -135,7 +127,7 @@ prod.addEventListener('click', (event)=>{
             
             if(appendSubDiv.childNodes.length === 0){
                 loader.style.display = 'block';
-            }                       
+            }
             data.map(function(pdct){
                 let icon = iconArray[Math.floor(Math.random()*iconArray.length)];
                 htmlString += `<div style='float: left'>
@@ -229,4 +221,55 @@ chat.addEventListener('click', (event)=>{
     
  }, {once : true});
 
-//document.addEventListener("DOMSubtreeModified", listener, false);
+notif.addEventListener('click', (event)=>{
+    event.preventDefault()
+    grid1.replaceChildren()
+
+    let brk2 = document.createElement('br');
+    let wordo = document.createElement('h2');
+    wordo.textContent = 'Notifications';
+    let br = document.createElement('br');
+    wordo.style.color = '#018749';
+    wordo.style.textAlign = 'center';
+    wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
+    let divy = document.createElement('center');
+
+    let loader = document.createElement('div');
+    let secondDivEle = document.createElement('div');
+    loader.className = 'loader';
+    loader.style.display = 'hidden';
+    secondDivEle.className = 'subDiv';
+
+    divy.appendChild(brk2);
+    divy.appendChild(wordo);
+    divy.appendChild(loader);
+    divy.appendChild(secondDivEle);
+    list.appendChild(divy);
+    grid1.appendChild(list);
+
+    let appendSubDiv = document.querySelector('.subDiv');
+    fetch('https://100092.pythonanywhere.com/notification/get-product/')
+    .then(resp=> resp.json()).then(data=> {
+                let htmlString = '';
+                if(appendSubDiv.childNodes.length === 0){
+                loader.style.display = 'block';
+            }
+            data.map(function(notif){
+                    htmlString += `<div style='float: left'>
+                            <b><a href='#'>${notif.product_name}</a></b>
+                            <p><b>${notif.title}</b></p>
+                            <p style="font-size: 12px">${notif.created_at}</p> 
+                            <hr></div>`
+
+            })
+            appendSubDiv.innerHTML = htmlString;
+            loader.style.display = 'none';
+
+    })
+
+    grid1.style.visibility = 'visible';
+    grid2.style.backgroundColor = 'transparent';
+    grid1.style.overflow = 'scroll';
+    body[0].style.width = '350px';
+    body[0].style.backgroundColor='beige';
+        }, {once : true});
