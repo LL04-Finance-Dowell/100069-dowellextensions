@@ -1,2 +1,0 @@
-def generate_editor_link(database_name,collection_name,fields,inserted_id):
-    return f"https://ll04-finance-dowell.github.io/100058-dowelleditor/?d_name={database_name}&col_name={collection_name}&id={inserted_id}&fields={fields}"
