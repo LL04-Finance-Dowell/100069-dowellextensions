@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from channels.layers import get_channel_layer
 from rest_framework import viewsets
+from .message3 import dowellconnection
 from .models import BroadcastNotification, Product
 
 from rest_framework import status
@@ -43,7 +44,13 @@ class NotificationViewset(viewsets.ViewSet):
           serializer = NotificationSerializer(data=request.data)
           serializer.is_valid(raise_exception=True)
           serializer.save()
+          try:
+                dowellconnection("Documents","Documentation","notification","notification","100069008","ABCDE","insert",serializer.data)
+          except:
+                print("Candidate data not saved to MongoDB Database")
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
           return Response(serializer.data, status=status.HTTP_201_CREATED)
+            
 
     
 
