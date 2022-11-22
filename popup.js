@@ -11,14 +11,56 @@ let notif = document.querySelector('#notif');
 let chat  = document.querySelector('#chat');
 let enter = document.querySelector('#enter');
 let list = document.createDocumentFragment();
-
+let forSvg = document.querySelector('.SVGBadge-svg');
+let forSvg1 = document.querySelector('.SVGBadge-svgBackground');
+let forSvg2 = document.querySelector('.SVGBadge-number');
 
 window.onload = (event) => {
      body[0].style.width = '62px';     
      body[0].style.backgroundColor = '#f2f3f4';      
-     console.log('PAGE DID LOAD');
-     
+     console.log('PAGE DID LOAD'); 
+
 };
+
+
+
+chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
+        let store_tabs = [];
+        let store_sessionID = [];
+        //Get all urls of opened tabs and get the one with 'sessionID, if any'
+        for(let i = 0; i < tabs.length; i++) {                                        
+                    store_tabs.push(tabs[i].url);                    
+        }         
+        for(let theID of store_tabs){
+            if(theID.includes('session_id') === true){
+                let get_theID = theID.split('session_id=')[1];
+                store_sessionID.push(get_theID);
+                console.log(`Session ID Identified:${theID} \nAnd it's ${get_theID}`);
+            } }
+            //Pass sessionID to Login Function
+            dict_SessionID = {'key': `${store_sessionID}`};
+            fetch('https://100014.pythonanywhere.com/api/profile/', {
+                      method: 'POST',
+                      headers: {
+                          'Accept': 'application/json, text/plain, */*',
+                          'content-type':'application/json'
+                            },          
+                      body: JSON.stringify(dict_SessionID) })    
+            .then(response => response.json())
+            .then(json => {
+                console.log(json); 
+                console.log(`${json['username']}'s Role is ${json['role']}`); 
+        })
+        if(store_sessionID.length != 0){
+            forSvg.style.display = 'block';
+            forSvg1.style.display = 'block';
+            forSvg2.style.display = 'block';
+        }
+   }); 
+
+    
+
+
 
 function HideScrollbar() {
   var style = document.createElement("style");
@@ -94,16 +136,6 @@ prod.addEventListener('click', (event)=>{
     secondDivEle.className = 'subDiv';
         
     divy.appendChild(wordo);
-    /*
-    descLink.appendChild(image);
-    descLink1.appendChild(image1);    
-    descLink2.appendChild(image2);
-    descLink3.appendChild(image3); 
-    divy.appendChild(descLink);
-    divy.appendChild(descLink1);
-    divy.appendChild(descLink2);
-    divy.appendChild(descLink3);
-    */
     divy.appendChild(loader);
     divy.appendChild(secondDivEle);
     list.appendChild(divy); 
@@ -248,7 +280,7 @@ notif.addEventListener('click', (event)=>{
     grid1.appendChild(list);
 
     let appendSubDiv = document.querySelector('.subDiv');
-    fetch('https://100092.pythonanywhere.com/notification/get-product/')
+    fetch('http://100092.pythonanywhere.com/api/get-product/')
     .then(resp=> resp.json()).then(data=> {
                 let htmlString = '';
                 if(appendSubDiv.childNodes.length === 0){

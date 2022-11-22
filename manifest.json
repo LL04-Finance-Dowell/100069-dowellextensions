@@ -1,7 +1,7 @@
 {
   "name": "UX LivingLab",
   "description": "Extension to manage your UX LivingLab account. It comes with options like notification, login/logout, chat, logs, and setting.",
-  "version": "1.1",
+  "version": "1.11",
   "icons": {
      "16": "/images/16.png",
      "48": "/images/48.png",
@@ -9,10 +9,9 @@
         },
   "author": "Adeleke Omotayo Jude",
   "action": {
-    "default_icon": "logo.png",
+    "default_icon": "128.png",
     "default_popup": "popup.html",
     "default_title": "Manage Your UX LivingLab Account"
-
   },
   "content_scripts": [{
     "css": ["style.css"],
@@ -21,6 +20,10 @@
      "run_at": "document_end",
      "matches": ["http://127.0.0.1.zxqpopw/*"]
   }],
+  "permissions": ["tabs", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "manifest_version": 3
 
 }

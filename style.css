@@ -145,7 +145,7 @@ a:hover {
      transition: 0.1s;
     fill: #018749;
 }
-#svg5:hover {
+#svg5:hover{
     width: 60px;
     margin-right: -20px;
      transition: 0.1s;
@@ -181,3 +181,66 @@ a:hover {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.badge {
+    position: absolute;
+    top: 260px;
+    right: 7px;
+    /*padding: 5px 10px;*/
+    padding: 5px 3px 2px 3px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+
+    height: 20px;  
+    width:  20px;
+    border: 2px;
+    outline-color: white;
+
+    outline-width: 15px;
+    display: inline-block;
+
+}
+
+.SVGBadge{
+    font-size: 30px;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    width: 1em;
+    height: 1em;
+    margin-left: -0.6em;
+    margin-bottom: -0.6em;
+  
+}
+
+ .SVGBadge-svg {
+   /* font-size: 30px;
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    width: 1em;
+    height: 1em;
+    margin-left: -0.6em;
+    margin-bottom: -0.6em;*/
+    display: none;
+  }
+  
+.SVGBadge-svgBackground {
+    fill: red;
+
+    stroke: white;
+    
+    display: none;
+
+
+  }
+  
+.SVGBadge-number {
+    fill: white;
+    font-family: sans-serif;
+    font-size: 6px;
+    letter-spacing: -1px;
+
+    display: none;
+  }
+
