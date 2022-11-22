@@ -8,6 +8,6 @@ from notification.models import Product
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ["user_id", "product_id","product_name","title", "message"]
 
 
