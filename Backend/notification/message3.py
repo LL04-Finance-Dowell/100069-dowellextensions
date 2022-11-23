@@ -56,7 +56,7 @@ def dowellconnection(cluster,database,collection,document,team_member_ID,functio
         "field": {
             "eventId":get_event_id(),
             'user_id': catagaries_form['user_id'],
-            # 'username': catagaries_form['username'],
+            'username': catagaries_form['username'],
             'product_id' : catagaries_form['product_id'],
             'product_name':catagaries_form['product_name'],
             'title':catagaries_form['title'],
@@ -65,7 +65,7 @@ def dowellconnection(cluster,database,collection,document,team_member_ID,functio
         },
         
         "update_field": {
-            "order_nos": 21
+
             },
         "platform": "bangalore"
         })
@@ -74,6 +74,7 @@ def dowellconnection(cluster,database,collection,document,team_member_ID,functio
         }
 
     response = requests.request("POST", url, headers=headers, data=payload)
+    print(response)
     res= json.loads(response.text)
     print(res)
     return res
@@ -86,3 +87,36 @@ field ={
 # inserted_id= dowellconnection("Documents","Documentation","notification","notification","100069008","ABCDE","insert",field)
 
 # print(inserted_id)
+
+def update_wf(cluster,database,collection,document,team_member_ID,function_ID,command,catagaries_form):
+    url = "http://100002.pythonanywhere.com/"
+        #searchstring="ObjectId"+"("+"'"+"6139bd4969b0c91866e40551"+"'"+")"
+    payload = json.dumps(
+        {
+        "cluster": cluster,
+        "database": database,
+        "collection": collection,
+        "document": document,
+        "team_member_ID": team_member_ID,
+        "function_ID": function_ID,
+        "command": command,
+        "field": {
+            'read':catagaries_form,
+        },
+        
+        "update_field": {
+            "eventId":get_event_id(),
+            'read':catagaries_form, 
+            },
+        "platform": "bangalore"
+        })
+    headers = {
+        'Content-Type': 'application/json'
+        }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response)
+    res= json.loads(response.text)
+    print(res)
+    return res
+    
