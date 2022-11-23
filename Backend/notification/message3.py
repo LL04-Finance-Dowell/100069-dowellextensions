@@ -56,12 +56,14 @@ def dowellconnection(cluster,database,collection,document,team_member_ID,functio
         "field": {
             "eventId":get_event_id(),
             'user_id': catagaries_form['user_id'],
+            # 'username': catagaries_form['username'],
             'product_id' : catagaries_form['product_id'],
             'product_name':catagaries_form['product_name'],
             'title':catagaries_form['title'],
             'message':catagaries_form['message'],
             'read':catagaries_form['read'],
         },
+        
         "update_field": {
             "order_nos": 21
             },

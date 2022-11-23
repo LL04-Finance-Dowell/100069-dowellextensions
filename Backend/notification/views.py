@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from channels.layers import get_channel_layer
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from .message3 import dowellconnection
 from .models import BroadcastNotification, Product
 
@@ -33,14 +34,14 @@ def test(request):
 
 
 
-class NotificationViewset(viewsets.ViewSet):
+class NotificationViewset(APIView):
 
-    def list(self, request):
+    def get(self, request):
         products = Product.objects.all()
         serializer = NotificationSerializer(products, many=True)
         return Response(serializer.data)
 
-    def create(self, request):
+    def post(self, request):
           serializer = NotificationSerializer(data=request.data)
           serializer.is_valid(raise_exception=True)
           serializer.save()
@@ -50,6 +51,13 @@ class NotificationViewset(viewsets.ViewSet):
                 print("Candidate data not saved to MongoDB Database")
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
           return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+    def put(self, request):
+        data = request.data
+        id = data["id"]
+        update_query = Product.objects.filter(uid = id ).update(read = True)
+        query =Product.objects.filter(uid = id ).values()
+        return Response(query,status=status.HTTP_201_CREATED)
             
 
     

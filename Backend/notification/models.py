@@ -14,6 +14,7 @@ import json
 class Product(models.Model):
     uid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user_id = models.CharField(max_length=255, null=True)
+    username =models.CharField(max_length=255, null=True)
     product_id = models.CharField(max_length=255)
     product_name = models.CharField(max_length=255, null=True)
     title = models.CharField(max_length=255)
