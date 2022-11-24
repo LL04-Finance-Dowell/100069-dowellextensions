@@ -3,7 +3,7 @@ from django.shortcuts import render
 from channels.layers import get_channel_layer
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from .message3 import dowellconnection, update_wf
+from .message3 import dowellconnection, update_notifications
 from .models import BroadcastNotification, Product
 
 from rest_framework import status
@@ -44,7 +44,7 @@ class NotificationViewset(APIView):
     def post(self, request):
           serializer = NotificationSerializer(data=request.data)
           serializer.is_valid(raise_exception=True)
-        #   serializer.save()
+          serializer.save()
           try:
                 dowellconnection("Documents","Documentation","notification","notification","100069008","ABCDE","insert",serializer.data)
           except:
@@ -55,11 +55,11 @@ class NotificationViewset(APIView):
     def put(self, request):
         data = request.data
         id = data["id"]
-        read = True
-        update_query = Product.objects.filter(uid = id ).update(read = read)
+        seen = True
+        update_query = Product.objects.filter(uid = id ).update(seen = seen)
         query =Product.objects.filter(uid = id ).values()
         try:
-            update_wf("Documents","Documentation","notification","notification","100069008","ABCDE","insert",read)
+            update_notifications("Documents","Documentation","notification","notification","100069008","ABCDE","insert",seen)
         except:
             print("Candidate data not saved to MongoDB Database")
             return Response(status=status.HTTP_400_BAD_REQUEST)

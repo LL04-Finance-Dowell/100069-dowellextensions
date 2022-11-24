@@ -19,7 +19,7 @@ class Product(models.Model):
     product_name = models.CharField(max_length=255, null=True)
     title = models.CharField(max_length=255)
     message = models.CharField(max_length=255)
-    read = models.BooleanField(default=False)
+    seen = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
 class BroadcastNotification(models.Model):

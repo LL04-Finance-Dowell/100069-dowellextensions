@@ -55,13 +55,11 @@ def dowellconnection(cluster,database,collection,document,team_member_ID,functio
         "command": command,
         "field": {
             "eventId":get_event_id(),
-            'user_id': catagaries_form['user_id'],
-            'username': catagaries_form['username'],
+            "users": [{'user_id': catagaries_form['user_id'],  'username': catagaries_form['user_id'], 'seen': False}, ] ,
             'product_id' : catagaries_form['product_id'],
             'product_name':catagaries_form['product_name'],
             'title':catagaries_form['title'],
             'message':catagaries_form['message'],
-            'read':catagaries_form['read'],
         },
         
         "update_field": {
@@ -88,7 +86,7 @@ field ={
 
 # print(inserted_id)
 
-def update_wf(cluster,database,collection,document,team_member_ID,function_ID,command,catagaries_form):
+def update_notifications(cluster,database,collection,document,team_member_ID,function_ID,command,catagaries_form):
     url = "http://100002.pythonanywhere.com/"
         #searchstring="ObjectId"+"("+"'"+"6139bd4969b0c91866e40551"+"'"+")"
     payload = json.dumps(
@@ -106,7 +104,7 @@ def update_wf(cluster,database,collection,document,team_member_ID,function_ID,co
         
         "update_field": {
             "eventId":get_event_id(),
-            'read':catagaries_form, 
+            "users": [{'seen': True}] , 
             },
         "platform": "bangalore"
         })
