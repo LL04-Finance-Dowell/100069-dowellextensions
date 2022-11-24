@@ -54,7 +54,7 @@ class NotificationViewset(APIView):
         
     def put(self, request):
         data = request.data
-        id = data["id"]
+        id = data["uid"]
         seen = True
         update_query = Product.objects.filter(uid = id ).update(seen = seen)
         query =Product.objects.filter(uid = id ).values()
