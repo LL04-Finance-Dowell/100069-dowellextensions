@@ -56,8 +56,8 @@ class NotificationViewset(APIView):
         data = request.data
         id = data["uid"]
         seen = True
-        update_query = Product.objects.filter(uid = id ).update(seen = seen)
-        query =Product.objects.filter(uid = id ).values()
+        update_query = Product.objects.filter(uid = id).update(seen = seen)
+        query =Product.objects.filter(uid = id).values()
         try:
             update_notifications("Documents","Documentation","notification","notification","100069008","ABCDE","insert",seen)
         except:
