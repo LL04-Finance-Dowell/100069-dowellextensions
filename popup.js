@@ -19,9 +19,16 @@ window.onload = (event) => {
      body[0].style.width = '62px';     
      body[0].style.backgroundColor = '#f2f3f4';      
      console.log('PAGE DID LOAD'); 
+     badge_funct();
 
 };
 
+let save_uid_for_badge = new Array();
+let save_uid = new Array();
+let save_usernames_for_badge = new Array();
+let save_username = new Array();
+let save_usernames = new Array();
+let save_notif_length = new Array();
 
 
 chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
@@ -31,26 +38,37 @@ chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
         for(let i = 0; i < tabs.length; i++) {                                        
                     store_tabs.push(tabs[i].url);                    
         }         
-        for(let theID of store_tabs){
+        for(let theID of store_tabs){                        
             if(theID.includes('session_id') === true){
-                let get_theID = theID.split('session_id=')[1];
-                store_sessionID.push(get_theID);
-                console.log(`Session ID Identified:${theID} \nAnd it's ${get_theID}`);
+                let get_theID = theID.split('session_id=')[1];                
+                store_sessionID.push(get_theID);                
+                console.log(`Session ID Identified:${theID} \nAnd it's ${get_theID}`);        
+                break
+                //`break` allows us to use the first instance of theID only in the iteration 
+                //incase there are more than 1 tabs with session_id.
             } }
             //Pass sessionID to Login Function
-            dict_SessionID = {'key': `${store_sessionID}`};
-            fetch('https://100014.pythonanywhere.com/api/profile/', {
-                      method: 'POST',
-                      headers: {
-                          'Accept': 'application/json, text/plain, */*',
-                          'content-type':'application/json'
-                            },          
-                      body: JSON.stringify(dict_SessionID) })    
-            .then(response => response.json())
-            .then(json => {
-                console.log(json); 
-                console.log(`${json['username']}'s Role is ${json['role']}`); 
+            if(store_sessionID.length != 0){
+                dict_SessionID = {'key': `${store_sessionID}`};
+                fetch('https://100014.pythonanywhere.com/api/profile/', {
+                          method: 'POST',
+                          headers: {
+                              'Accept': 'application/json, text/plain, */*',
+                              'content-type':'application/json'
+                                },          
+                          body: JSON.stringify(dict_SessionID) })    
+                .then(response => response.json())
+                .then(json => {
+                    save_username.push(json['username']);
+                    console.log(json); 
+                    console.log(`${json['username']}'s Role is ${json['role']}`); 
+
+                    
         })
+            }
+            else {
+                console.log('No Session ID Found');
+            }
         if(store_sessionID.length != 0){
             forSvg.style.display = 'block';
             forSvg1.style.display = 'block';
@@ -58,7 +76,25 @@ chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
         }
    }); 
 
-    
+function badge_funct(){
+  fetch('http://100092.pythonanywhere.com/api/get-product/')
+        .then(resp=> resp.json())
+        .then(data=> {
+            data.map(function(notif){                            
+                  save_usernames_for_badge.push(notif.username);
+                    for(const user of save_usernames_for_badge){
+                       if(user === save_username && (!notif.seen)){                                        
+                         save_uid_for_badge.push(notif.uid);                                            
+                   //  break
+                      console.log(`Length: ${save_uid_for_badge.length}`)
+                      
+                }} })                
+                 }
+            )
+        console.log("Badge Function Rendered");
+};
+
+
 
 
 
@@ -98,13 +134,11 @@ team.addEventListener('click', (event)=>{
  	grid1.appendChild(list); 
     
  	
-
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
     body[0].style.width = '350px'; 
-    body[0].style.backgroundColor='beige';
-    //HideScrollbar(); 
+    body[0].style.backgroundColor='beige';    
 
  }, {once : true});   
 
@@ -162,9 +196,9 @@ prod.addEventListener('click', (event)=>{
             }
             data.map(function(pdct){
                 let icon = iconArray[Math.floor(Math.random()*iconArray.length)];
-                htmlString += `<div style='float: left'>
-                            <b><a href='${pdct.product_url}' target='_blank'>${pdct.product_name}</a></b>
-                            <img src="${icon}" /><hr></div>`                
+                htmlString += `<div>                                                    
+                            <b><a href='${pdct.product_url}' target='_blank'>${pdct.product_name}</a></b>                            
+                            <img src="${icon}" style="float: left"/> <hr></div>`                
             })            
             appendSubDiv.innerHTML = htmlString;               
             loader.style.display = 'none';
@@ -287,18 +321,46 @@ notif.addEventListener('click', (event)=>{
                 loader.style.display = 'block';
             }
             data.map(function(notif){
-                    htmlString += `<div style='float: left'>
-                            <b><a href='#'>${notif.product_name}</a></b>
-                            <p><b>${notif.title}</b></p>
-                            <p style="font-size: 12px">${notif.created_at}</p> 
-                            <hr></div>`
+                    let getDate = notif.created_at.replace('T', ' ');
+                    let cleanDate = getDate.substring(0, 16);
+                    save_usernames.push(notif.username);
+                    //save_uid.push(notif.uid);
 
-            })
+                    //Test if username from tab === username And if 'seen' is false in DB
+                                    for(const user of save_usernames){
+                                        if(user === save_username[0] && (!notif.seen)){
+                                            save_notif_length.push(user.length);
+                                            save_uid.push(notif.uid);
+                                    htmlString += `<div>
+                                            <small>
+                                            Product Name: <b><a href='#'>${notif.product_name}</a></b><br>
+                                            Title: <b>${notif.title}</b><br>
+                                            Message: <b>${notif.message}</b><br>
+                                            ${cleanDate}<br>
+                                            <input type="checkbox" id="cbox"/> Mark as read
+                                            <hr width='120px'></small></div>`
+                                            break
+                }}   })
+            let checkbox = document.getElementById('cbox');
+  //          checkbox.addEventListener('change', () => {
+  //                      if(checkbox.checked){
+  //                          console.log('Element Checked');
+  //                          fetch('http://100092.pythonanywhere.com/api/get-product/',
+  //                               {   method:'PUT',
+  //                                   headers:{'Accept':'application/json,text/plain,*/*','content-type':'application/json'},
+  //                                   body: JSON.stringify({'uid':`${save_uid}`})}
+  //                              )
+  //                          .then(res => res.json())
+   //                         .then((data)=> {console.log(`Here's the data: ${data}`, `All's Good`)})
+   //        }; });
+
+            console.log(`UID: ${save_uid} \n USERNAME: ${save_username}`);
+            console.log(`Stored Usernames:${save_usernames}, ${save_usernames.length}`);
+            console.log(`UID Length:${save_uid.length}`);
+            //console.log(typeof save_username[0]);
             appendSubDiv.innerHTML = htmlString;
             loader.style.display = 'none';
-
     })
-
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
