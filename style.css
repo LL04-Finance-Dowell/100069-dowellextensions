@@ -91,7 +91,7 @@ img {
 	border-bottom-right-radius: 15px;
 }
 
-h1, h2 {
+h1, h2, h4 {
 	background-color:#a8e4a0; /*rgb(119,221,119);*/
 	border-radius: 6px;
 	width: 200px;
@@ -114,7 +114,7 @@ a {
 
 a:hover {
    cursor: pointer;   
-   background-color: beige;  
+   
 }
 
 
