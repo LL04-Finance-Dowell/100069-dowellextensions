@@ -10,12 +10,10 @@ import base64
 
 class Product_api(APIView):
     def get(self, request):
-        print("hello")
         snippets = Product.objects.all()
         serializer = ProductsSerializer(snippets, many=True)
         try:
             resp = targeted_population("ProductReport","dowelltraining",["product_name"],"life_time")
-            # print(resp['normal']['data'][0])
             for i in resp['normal']['data'][0]:
                 for key, value in i.items() :
                     if key == "product_image":
@@ -33,9 +31,7 @@ class Product_api(APIView):
         except Exception as e:
             return Response(str(e))
 
-    def post(self, request):
-        print("hello")
-        
+    def post(self, request):        
         try:
             product_name = request.data['product_name']
             product_url = request.data['product_url']
@@ -43,18 +39,13 @@ class Product_api(APIView):
             images_dict = {}
             serializer = ProductsSerializer(data=request.data)
             if serializer.is_valid():
-                print("after serializer")
                 serializer.save()
             image_path = Product.objects.filter(product_name = product_name).values("product_image").first()
-            print(image_path['product_image'])
             with open(image_path['product_image'], "rb") as imageFile:
-                print(product_name,product_url, product_image)
                 images_dict["image_1"] = base64.encodebytes(imageFile.read()).decode('utf-8').replace("\n", "")
-            print(images_dict)
             command = "insert"
             eventId = get_event_id()
             output = connection(command,eventId,product_name,product_url,images_dict["image_1"])
-            print(output)
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response(str(e))
