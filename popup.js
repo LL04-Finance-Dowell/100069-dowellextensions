@@ -20,11 +20,11 @@ let secure_uid = document.querySelector('.secret_uid');
 
 window.onload = (event) => {
      body[0].style.width = '62px';     
-     body[0].style.backgroundColor = '#f2f3f4';      
+     body[0].style.backgroundColor = '#f2f3f4';        
      console.log('PAGE DID LOAD');
       forSvg.style.display = 'none'; 
       forSvg1.style.display ='none'; 
-      forSvg2.style.display = 'none';
+      forSvg2.style.display = 'none';      
 };
 
 
@@ -79,7 +79,7 @@ chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
                     //console.log(`***${gen_user}***`); 
                     //console.log(`**${json['username']}'s Role is ${json['role']}**`);
                     chrome.storage.local.set({ key: json['username']}).then(() => {
-                            console.log(`Value is set to + ${json['username']}`);
+                            console.log(`Welcome ${json['username']}`);
                             });                  
         })
             }
@@ -130,7 +130,7 @@ chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
             if(theID.includes('session_id') === true){
                 let get_theID = theID.split('session_id=')[1];                
                 store_sessionID.push(get_theID);                
-                console.log(`Session ID Identified:${theID} \nAnd it's ${get_theID}`);        
+                console.log(`Session ID Identified:${get_theID}`);        
                 break                
             } }
             //Pass sessionID to Login Function
@@ -160,6 +160,8 @@ chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
         }
    }); 
 
+
+
 function HideScrollbar() {
   var style = document.createElement("style");
   style.innerHTML = `body::-webkit-scrollbar {display: none;}`;
@@ -168,7 +170,7 @@ function HideScrollbar() {
 
 team.addEventListener('click', (event)=>{
  	event.preventDefault()
-    grid1.replaceChildren()
+    grid1.replaceChildren()    
 
  	let stylo = document.createElement('style');
     stylo.innerHTML = `html::-webkit-scrollbar {width: 10px}`;
@@ -197,10 +199,11 @@ team.addEventListener('click', (event)=>{
     
  	
     grid1.style.visibility = 'visible';
-    grid2.style.backgroundColor = 'transparent';
+    grid2.style.backgroundColor = 'transparent';    
     grid1.style.overflow = 'scroll';
     body[0].style.width = '350px'; 
-    body[0].style.backgroundColor='beige';    
+    //body[0].style.backgroundColor='beige';
+    body[0].style.backgroundColor='#ecf5ee';
 
  }, {once : true});   
 
@@ -270,7 +273,8 @@ prod.addEventListener('click', (event)=>{
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
     body[0].style.width = '350px';
-    body[0].style.backgroundColor='beige';    
+    //body[0].style.backgroundColor='beige';
+    body[0].style.backgroundColor='#ecf5ee';    
     
 }, {once : true});
 
@@ -306,7 +310,8 @@ chat.addEventListener('click', (event)=>{
   grid1.style.visibility = 'visible';
   grid2.style.backgroundColor = 'transparent';
   body[0].style.width = '350px';
-  body[0].style.backgroundColor='beige';  
+  //body[0].style.backgroundColor='beige';
+  body[0].style.backgroundColor='#ecf5ee';  
  
 
   //***************Another Layer***************
@@ -341,7 +346,8 @@ chat.addEventListener('click', (event)=>{
                 grid2.style.backgroundColor = 'transparent';
                 grid1.style.overflow = 'scroll';
                 body[0].style.width = '350px'; 
-                body[0].style.backgroundColor='beige';
+                //body[0].style.backgroundColor='beige';
+                body[0].style.backgroundColor='#ecf5ee';
                 //HideScrollbar(); 	  
       
             }, {once : true});  
@@ -412,7 +418,7 @@ notif.addEventListener('click', (event)=>{
                 //**Future feature**: checked event triggers a fetch request (PUT)...
                 //to mark notifications as read/seen
                 document.addEventListener('DOMContentLoaded', function () {
-                checkbox.addEventListener('change', changeHandler);
+                checkbox.addEventListener('CheckboxStateChange', changeHandler);
                         });
                 function changeHandler(){                        
                      getValue = secure_uid.value;
@@ -474,7 +480,8 @@ notif.addEventListener('click', (event)=>{
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
     body[0].style.width = '350px';
-    body[0].style.backgroundColor='beige'; 
+    //body[0].style.backgroundColor='beige';
+    body[0].style.backgroundColor='#ecf5ee';
         
         }, {once : true});
 
@@ -483,6 +490,13 @@ notif.addEventListener('click', (event)=>{
 enter.addEventListener('click', (event)=>{
     event.preventDefault()
     grid1.replaceChildren()
+
+        chrome.storage.sync.set({ key: save_username.toString() }).then(() => {
+          console.log("Session Username: " + save_username.toString());
+        });
+       // chrome.storage.session.get(["key"]).then((result) => {
+         // console.log("Session Username is: " + result.key);
+        //});
     
     let divy = document.createElement('center');
     let loader = document.createElement('div');
@@ -490,12 +504,14 @@ enter.addEventListener('click', (event)=>{
     let brk4 = document.createElement('br');
     let wordo = document.createElement('h2');
     let wordoo = document.createElement('p');        
-    let brk = document.createElement('br');     
+    let brk = document.createElement('br');       
     let descLink = document.createElement('a'); 
     let btn = document.createElement('button'); 
 
     //let secondDivEle = document.createElement('div');
-    if(save_username.length === 0){
+    chrome.storage.sync.get(["key"]).then((result) => {        
+    //if(save_username.length === 0){
+        if(result.key.length === 0){
 
         wordo.style.color = '#018749';
         wordo.textContent = 'Login';
@@ -527,14 +543,15 @@ enter.addEventListener('click', (event)=>{
         grid2.style.backgroundColor = 'transparent';
         grid1.style.overflow = 'scroll';
         body[0].style.width = '350px'; 
-        body[0].style.backgroundColor='beige';    
+        //body[0].style.backgroundColor='beige';
+        body[0].style.backgroundColor='#ecf5ee';    
     }    
     else {
         wordo.style.color = '#018749';
         wordo.textContent = 'Login View';
         wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
         wordoo.style.color = '#018749';
-        wordoo.textContent = `Welcome ${save_username}! You're logged in.`;
+        wordoo.textContent = `Welcome ${result.key}! You're logged in.`;
         wordoo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
         
         loader.className = 'loader';
@@ -543,8 +560,8 @@ enter.addEventListener('click', (event)=>{
         divy.appendChild(brk2);        
         divy.appendChild(wordo);    
         divy.appendChild(wordoo); 
-        divy.appendChild(brk4);   
-        divy.appendChild(brk);
+        divy.appendChild(brk4);           
+        divy.appendChild(brk);        
         list.appendChild(divy);        
         grid1.appendChild(list); 
 
@@ -552,9 +569,10 @@ enter.addEventListener('click', (event)=>{
         grid2.style.backgroundColor = 'transparent';
         grid1.style.overflow = 'scroll';
         body[0].style.width = '350px'; 
-        body[0].style.backgroundColor='beige';    
-
+        //body[0].style.backgroundColor='beige';
+        body[0].style.backgroundColor='#ecf5ee';
         }
+        });
         
 
 }, {once : true});
