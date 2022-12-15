@@ -34,15 +34,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include('notification.urls'))
-]
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
      path(
         '',
         include([
-            path('admin/', admin.site.urls),
             path('api/',include('notification.urls')),
             path('product/',include('Product_api.urls')),
             path('swagger/schema/', schema_view.with_ui('swagger',cache_timeout=0), name='schema-schema'),

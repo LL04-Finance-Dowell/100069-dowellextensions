@@ -1,6 +1,5 @@
 import json
 import requests
-import pprint
 from datetime import datetime
 
 def get_event_id():
