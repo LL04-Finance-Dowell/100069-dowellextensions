@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .connection import *
 
-base_url = "/home/100092/100069-dowellextensions/Backend/"
+base_url = "/home/100092/100069-dowellextensions/Backend"
 
 @method_decorator(csrf_exempt, name='dispatch')
 class PostDataIntoCollection(APIView):
