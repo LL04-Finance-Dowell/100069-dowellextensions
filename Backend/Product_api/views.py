@@ -31,7 +31,19 @@ class PostDataIntoCollection(APIView):
             return Response(inserted_id,status=status.HTTP_201_CREATED)
         return Response({"info": "Toodles!"},status=status.HTTP_400_BAD_REQUEST)
 
+@method_decorator(csrf_exempt, name='dispatch')
+class GetAllDataByCollection(APIView):
 
+    def post(self, request):
+        product_id= request.data.get('product_id',None)
+        if product_id:
+            command= "find"
+            field = {
+                "product_id": product_id
+            }
+            responses = dowellconnection(command,field)
+            return Response(responses,status=status.HTTP_200_OK)
+        return Response({"info": "Toodles"},status=status.HTTP_400_BAD_REQUEST)
     
 
 

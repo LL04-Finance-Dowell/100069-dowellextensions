@@ -6,4 +6,5 @@ schema_view = get_swagger_view(title='Notification API')
 
 urlpatterns = [
     path('post-data-into-collection/', PostDataIntoCollection.as_view()),
+    path('get-data-by-collection/', GetAllDataByCollection.as_view()),
 ]
