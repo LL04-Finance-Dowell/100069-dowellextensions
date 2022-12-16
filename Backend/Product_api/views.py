@@ -12,20 +12,25 @@ import base64
 
 class Product_api(APIView):
     def get(self, request):
-        snippets = Product.objects.all()
-        serializer = ProductsSerializer(snippets, many=True)
         try:
-            resp = targeted_population("ProductReport","dowelltraining",["product_name"],"life_time")
-            for i in resp['normal']['data'][0]:
-                imgdata = base64.b64decode(i["product_image"])
-                filename ="uploads/"+f'{i["product_name"]}.svg'  # I assume you have a way of picking unique filenames
-                with open(filename, 'wb') as f:
-                    f.write(imgdata)
-                    f.close()
-                    i["product_image"] = filename
-            return Response({"Local":serializer.data, "MongoDB":resp})
-        except Exception as e:
-            return Response(str(e))
+            response = targeted_population("Documentation","ProductReport",["product_name"],"life_time")
+            return Response(response,status=status.HTTP_201_CREATED)
+        except:
+            return Response({"status":"There is NO CONTENT"},status=status.HTTP_204_NO_CONTENT)
+        # snippets = Product.objects.all()
+        # serializer = ProductsSerializer(snippets, many=True)
+        # try:
+        #     resp = targeted_population("Documentation","ProductReport",["product_name"],"life_time")
+        #     for i in resp['normal']['data'][0]:
+        #         imgdata = base64.b64decode(i["product_image"])
+        #         filename ="uploads/"+f'{i["product_name"]}.svg'  # I assume you have a way of picking unique filenames
+        #         with open(filename, 'wb') as f:
+        #             f.write(imgdata)
+        #             f.close()
+        #             i["product_image"] = filename
+        #     return Response({"Local":serializer.data, "MongoDB":resp})
+        # except Exception as e:
+        #     return Response(str(e))
 
     def post(self, request, format=None):        
         try:
