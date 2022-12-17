@@ -46,3 +46,18 @@ Response-404
     "info":"Toodles!"
 }
 ```
+
+### List of Products
+
+| Product_id | Product_name |
+| ----------- | ----------- |
+| 10001 | Workflow AI       |
+| 10002 | Ux live           |
+| 10003 | Legalzard         |
+| 10004 | Livinglab         |
+| 10005 | Wifi QR Code      |
+| 10006 | dowell maps       |
+| 10007 | Social media automation|
+| 10008 | Living Lab Admin  |
+| 10009 | Scales            |
+| 10010 | Customer experience|
