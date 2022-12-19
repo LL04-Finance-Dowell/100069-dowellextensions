@@ -11,11 +11,10 @@ let notif = document.querySelector('#notif');
 let chat  = document.querySelector('#chat');
 let enter = document.querySelector('#enter');
 let list = document.createDocumentFragment();
+let list_for_notif = document.createDocumentFragment();
 let forSvg = document.querySelector('.SVGBadge-svg');
 let forSvg1 = document.querySelector('.SVGBadge-svgBackground');
 let forSvg2 = document.querySelector('.SVGBadge-number');
-let checkbox = document.querySelector('.cbox');
-let secure_uid = document.querySelector('.secret_uid');
 
 
 window.onload = (event) => {
@@ -222,7 +221,7 @@ prod.addEventListener('click', (event)=>{
     wordo.style.textAlign = 'center';
     wordo.style.marginLeft = '-50px';    
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
-    let divy = document.createElement('center');
+    let divy = document.createElement('center');        
     let loader = document.createElement('div');
     let secondDivEle = document.createElement('div');
     
@@ -241,34 +240,26 @@ prod.addEventListener('click', (event)=>{
     grid1.appendChild(list);
        
     let appendSubDiv = document.querySelector('.subDiv');
-    fetch('http://100069.pythonanywhere.com/products/products/')
-    .then(resp=> resp.json()).then(data=> {
-            let htmlString = '';
-            let iconArray = [
-                    'https://img.icons8.com/bubbles/100/000000/collaboration.png',
-                    'https://img.icons8.com/bubbles/100/000000/inspection.png',
-                    'https://img.icons8.com/bubbles/100/000000/employee-card.png',
-                    'https://img.icons8.com/bubbles/100/000000/process.png',
-                    'https://img.icons8.com/bubbles/100/000000/survey.png',
-                    'https://img.icons8.com/bubbles/100/000000/define-location.png',
-                    'https://img.icons8.com/bubbles/100/000000/mind-map.png',
-                    'https://img.icons8.com/bubbles/100/40C057/link-company-parent.png',
-                    'https://img.icons8.com/bubbles/100/000000/project-setup.png'
-                                    ]
-            
+    appendSubDiv.innerHTML = '<br><h6 style="margin-left:-50px; color:#018749; font-family:Courier New"><b>Request Could Take a Little While, Please Wait.</b></h6>';                        
+    appendSubDiv.style.display = 'grid';
+    fetch('https://100092.pythonanywhere.com/product/get-all-data')
+    .then(resp=> resp.json()).then(datar=> {
+            let htmlString = '';            
             if(appendSubDiv.childNodes.length === 0){
-                loader.style.display = 'block';
+                loader.style.display = 'block';                
             }
-            data.map(function(pdct){
-                let icon = iconArray[Math.floor(Math.random()*iconArray.length)];
-                htmlString += `<div>                                                    
-                            <b><a href='${pdct.product_url}' target='_blank'>${pdct.product_name}</a></b>                            
-                            <img src="${icon}" style="float: left"/> <hr></div>`                
-            })            
+
+            datar.normal.data[0].map((pdct)=> {                                
+                htmlString += ` 
+                            <a href='${pdct.product_url}' target='_blank' style='grid-template-columns: minmax(100px, 1fr) 3fr;'>                            
+                              ${pdct.product_logo}
+                              <small style="font-size: 12px; font-family:Courier New, monospace; color: red;">
+                              <b>${pdct.product_name}</b></small>                                               
+                            </a><hr>`                
+            })                    
             appendSubDiv.innerHTML = htmlString;               
             loader.style.display = 'none';
     });
-      
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
@@ -385,73 +376,80 @@ notif.addEventListener('click', (event)=>{
     list.appendChild(divy);
     grid1.appendChild(list);
     
-    let appendSubDiv = document.querySelector('.subDiv');
+    let appendSubDiv = document.querySelector('.subDiv');    
     fetch('http://100092.pythonanywhere.com/api/get-product/')
     .then(resp=> resp.json()).then(data=> {
                 let htmlString = '';
+                //window.getValue ='';                 
                 if(appendSubDiv.childNodes.length === 0){
                 loader.style.display = 'block';
-            }
+                    }                   
             data.map(function(notif){
                     let getDate = notif.created_at.replace('T', ' ');
                     let cleanDate = getDate.substring(0, 16);
-                    save_usernames.push(notif.username);                    
-
+                    save_usernames.push(notif.username);
+                    window.getUidLength = save_uid.length;                                       
                     //Test if username from tab === username And if 'seen' is false in DB
-                    for(const user of save_usernames){
+                    for(const user of save_usernames){                        
                         if(user === save_username[0] && (!notif.seen)){
                             save_notif_length.push(user.length);
-                            save_uid.push(notif.uid);
-                    htmlString += `<div>
+                            save_uid.push(notif.uid);                             
+                   
+                    htmlString += `<div style="background-color:#ecf5ee; border-radius: 12px;">
                             <small>
-                            Product Name: <b><a href='#'>${notif.product_name}</a></b><br>
-                            Title: <b>${notif.title}</b><br>
-                            Message: <b>${notif.message}</b><br>                                            
-                            ${cleanDate}<br>
-                            <input type="hidden" value=${notif.uid} class="secret_uid"/>
-                            <input type="checkbox" class="cbox"/> Mark as read
-                            <hr width='120px'></small></div>`                                    
-                            break                    
+                            <b><a href='#'>${notif.product_name}</a></b><br>
+                            ${notif.title}<br>
+                            <small><b>${notif.message}</b></small><br>                                            
+                            <small><code>${cleanDate}</code></small><br>
+                            <input type="hidden" value=${notif.uid} class="secret_uid" id=item_${getUidLength++}/>
+                            <button class='btx'>Mark as Read</button>
+                            <hr width='180px'></small></div>`                            
+                            break 
 
-                }}                      
-             })            
-                //**Future feature**: checked event triggers a fetch request (PUT)...
-                //to mark notifications as read/seen
-                document.addEventListener('DOMContentLoaded', function () {
+                           
+                }}
+             })
+                
+                /*document.addEventListener('DOMContentLoaded', function () {
                 checkbox.addEventListener('CheckboxStateChange', changeHandler);
-                        });
-                function changeHandler(){                        
-                     getValue = secure_uid.value;
-                    if(checkbox.checked){
-                         console.log('Element Checked');
-                         console.log(`SecureUID: ${getValue}`);                        
-                         fetch('http://100092.pythonanywhere.com/api/get-product/',
-                                         {   method:'POST',
-                                            headers:{'Accept':'application/json,text/plain,*/*','content-type':'application/json'},
-                                        body: JSON.stringify({'uid':`${getValue}`})}
-                                      )
-                         .then(res => res.json())
-                         .then((data)=> {console.log(`Here's the data: ${data}`, `All's Good`)})
-                            } 
-                        else{
-                            console.log("Couldn't Make PUT request");
-                        }
-                    };
-                        
+                        }); */                                      
 
             //console.log(`UID: ${save_uid} \n USERNAME: ${save_username}`);
             //console.log(`Stored Usernames:${save_usernames}, ${save_usernames.length}`);
             //console.log(`UID Length:${save_uid.length}`);            
 
             appendSubDiv.innerHTML = htmlString;
+            
             if(save_uid.length != 0){
-                forSvg.style.display = 'block';
-                forSvg1.style.display = 'block';
+               forSvg.style.display = 'block';
+               forSvg1.style.display = 'block';
                forSvg2.style.display = 'block';
                forSvg2.innerHTML = save_uid.length;
-        }            
+            }
+            else{
+                appendSubDiv.innerHTML = `<br><br><h3>No Notification</h3>`
+            }            
             loader.style.display = 'none';
+                        
+            window.btx = document.querySelector('.btx');
+            let secure_uid = document.querySelector('.secret_uid'); 
+                        
+           /* for(i=0;i<getUidLength; i++){
+                var item_i = document.querySelector(`#item_${i}`);
+                console.log(item_i.value);
+            }*/
+
+
+            btx.addEventListener('click', (event)=>{
+                event.preventDefault()
+                changeHandler(secure_uid)
+                })
             
+            
+
+
+
+
     })
     }
     else {
@@ -469,7 +467,7 @@ notif.addEventListener('click', (event)=>{
         divy.appendChild(brk2);
         divy.appendChild(wordo);    
         divy.appendChild(secondDivEle);
-         divy.appendChild(brk4);
+        divy.appendChild(brk4);
         divy.appendChild(wordoo);
         list.appendChild(divy);
         grid1.appendChild(list);
@@ -482,8 +480,41 @@ notif.addEventListener('click', (event)=>{
     body[0].style.width = '350px';
     //body[0].style.backgroundColor='beige';
     body[0].style.backgroundColor='#ecf5ee';
+    
         
         }, {once : true});
+
+ function changeHandler(secure_uid){ 
+        let getValue = secure_uid.value;
+        console.log(getValue);
+        fetch('http://100092.pythonanywhere.com/api/get-product/',
+        {   method:'PUT',
+            headers:{'Accept':'application/json,text/plain,*/*','content-type':'application/json'},
+            body: JSON.stringify({'uid':`${getValue}`})})
+        .then(res => res.json())
+        .then((data)=> {console.log(`Here's the data: ${data}, All's Good`)}) 
+        btx.innerHTML = 'Already Read'
+ }
+
+
+//function changeHandler(checkbox, secure_uid){ 
+//    let getValue = secure_uid.value;
+//    console.log(`@@@@@@@@@@@@@@@@@ ${getValue}`);    
+//    if(checkbox.clicked){
+//        console.log('Element Checked');
+//        console.log(`SecureUID: ${getValue}`);                        
+//        fetch('http://100092.pythonanywhere.com/api/get-product/',
+//        {   method:'PUT',
+//            headers:{'Accept':'application/json,text/plain,*/*','content-type':'application/json'},
+//            body: JSON.stringify({'uid':`${getValue}`})})
+//        .then(res => res.json())
+//        .then((data)=> {console.log(`Here's the data: ${data}`, `All's Good`)})} 
+//    else{console.log("Couldn't Make PUT request");}
+//                     };                        
+
+
+
+
 
 
 
