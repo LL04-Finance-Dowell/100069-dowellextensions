@@ -211,23 +211,18 @@ team.addEventListener('click', (event)=>{
 prod.addEventListener('click', (event)=>{
     event.preventDefault()
     grid1.replaceChildren()
-    
-    
-    //let br2 = document.createElement('br');
+            
     let wordo = document.createElement('h2');    
     wordo.textContent = 'Products';
     let br = document.createElement('br');
     wordo.style.color = '#018749';
     wordo.style.textAlign = 'center';
-    wordo.style.marginLeft = '-50px';    
+    //wordo.style.marginLeft = '-50px';    
+    wordo.style.margin = '25px';    
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
     let divy = document.createElement('center');        
     let loader = document.createElement('div');
     let secondDivEle = document.createElement('div');
-    
-
-    divy.style.marginTop = '25px';
-    divy.style.marginLeft = '50px';
     
     loader.className = 'loader';
     loader.style.display = 'hidden';
@@ -240,26 +235,27 @@ prod.addEventListener('click', (event)=>{
     grid1.appendChild(list);
        
     let appendSubDiv = document.querySelector('.subDiv');
-    appendSubDiv.innerHTML = '<br><h6 style="margin-left:-50px; color:#018749; font-family:Courier New"><b>Request Could Take a Little While, Please Wait.</b></h6>';                        
-    appendSubDiv.style.display = 'grid';
+    appendSubDiv.innerHTML = '<br><br><h7 style="color:#018749; font-family:Courier New;background-color:#ecf5ee;width:20px border-radius:60px;"><b>Request May Take a Little While, Please Wait.</b></h7>';                        
+    //appendSubDiv.style.display = 'grid';    
     fetch('https://100092.pythonanywhere.com/product/get-all-data')
     .then(resp=> resp.json()).then(datar=> {
             let htmlString = '';            
             if(appendSubDiv.childNodes.length === 0){
                 loader.style.display = 'block';                
             }
-
+                    
             datar.normal.data[0].map((pdct)=> {                                
                 htmlString += ` 
-                            <a href='${pdct.product_url}' target='_blank' style='grid-template-columns: minmax(100px, 1fr) 3fr;'>                            
-                              ${pdct.product_logo}
-                              <small style="font-size: 12px; font-family:Courier New, monospace; color: red;">
-                              <b>${pdct.product_name}</b></small>                                               
-                            </a><hr>`                
-            })                    
+                            <a href='${pdct.product_url}' target='_blank' style='display:flex; margin:1px;justify-content: center; align-items: center;'>
+                               ${pdct.product_logo}
+                            </a>
+                            <a href='${pdct.product_url}' target='_blank' style='display:flex;justify-content: center; align-items: center;'>
+                                <small style="font-size: 12px; font-family:Courier New, monospace; color: red; margin:10px">
+                                <b>${pdct.product_name}</b></small>`                
+            })//grid-column: 2 / 7  // style='grid-column: 2 / 7;
             appendSubDiv.innerHTML = htmlString;               
             loader.style.display = 'none';
-    });
+    }); // style='grid-column: 1 / 2;  
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
@@ -495,27 +491,6 @@ notif.addEventListener('click', (event)=>{
         .then((data)=> {console.log(`Here's the data: ${data}, All's Good`)}) 
         btx.innerHTML = 'Already Read'
  }
-
-
-//function changeHandler(checkbox, secure_uid){ 
-//    let getValue = secure_uid.value;
-//    console.log(`@@@@@@@@@@@@@@@@@ ${getValue}`);    
-//    if(checkbox.clicked){
-//        console.log('Element Checked');
-//        console.log(`SecureUID: ${getValue}`);                        
-//        fetch('http://100092.pythonanywhere.com/api/get-product/',
-//        {   method:'PUT',
-//            headers:{'Accept':'application/json,text/plain,*/*','content-type':'application/json'},
-//            body: JSON.stringify({'uid':`${getValue}`})})
-//        .then(res => res.json())
-//        .then((data)=> {console.log(`Here's the data: ${data}`, `All's Good`)})} 
-//    else{console.log("Couldn't Make PUT request");}
-//                     };                        
-
-
-
-
-
 
 
 enter.addEventListener('click', (event)=>{
