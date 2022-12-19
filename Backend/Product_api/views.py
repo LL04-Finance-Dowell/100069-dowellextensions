@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .connection import *
+from .population import *
 
 base_url = "/home/100092/100069-dowellextensions/Backend/uploads"
 
@@ -44,6 +45,17 @@ class GetAllDataByCollection(APIView):
             responses = dowellconnection(command,field)
             return Response(responses,status=status.HTTP_200_OK)
         return Response({"info": "Toodles"},status=status.HTTP_400_BAD_REQUEST)
+    
+
+@method_decorator(csrf_exempt, name='dispatch')
+class GetAllData(APIView):
+
+    def get(self, request):
+        try:
+            responses= targeted_population("Documentation","ProductReport",["product_id"],"life_time")
+            return Response(responses,status=status.HTTP_200_OK)
+        except:
+            return Response({"info": "Toodles"},status=status.HTTP_400_BAD_REQUEST)
     
 
 

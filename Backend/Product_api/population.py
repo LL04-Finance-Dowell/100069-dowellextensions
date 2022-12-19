@@ -7,16 +7,9 @@ def targeted_population(database, collection, fields, period):
     url = 'http://100032.pythonanywhere.com/api/targeted_population/'
 
     database_details = {
-        "cluster": "Documents",
-        "database": "Documentation",
-        "collection": "ProductReport",
-        "document": "ProductReport",
-        "team_member_ID": "1000180002",
-        "function_ID": "ABCDE",
-
-        # 'database_name': 'mongodb',
-        # 'collection': collection,
-        # 'database': database,
+        'database_name': 'mongodb',
+        'collection': collection,
+        'database': database,
         'fields': fields
     }
 
@@ -71,6 +64,3 @@ def targeted_population(database, collection, fields, period):
     res= json.loads(response.text)
   
     return res
-
-
-# print(targeted_population("ProductReport","dowelltraining",["product_name"],"life_time"))
