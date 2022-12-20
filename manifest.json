@@ -1,7 +1,7 @@
 {
   "name": "UX LivingLab",
   "description": "Extension to manage your UX LivingLab account. It comes with options like notification, login/logout, chat, logs, and setting.",
-  "version": "1.11",
+  "version": "1.111",
   "icons": {
      "16": "/images/16.png",
      "48": "/images/48.png",
