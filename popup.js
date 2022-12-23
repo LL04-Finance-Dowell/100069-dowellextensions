@@ -15,7 +15,8 @@ let list_for_notif = document.createDocumentFragment();
 let forSvg = document.querySelector('.SVGBadge-svg');
 let forSvg1 = document.querySelector('.SVGBadge-svgBackground');
 let forSvg2 = document.querySelector('.SVGBadge-number');
-
+let closeView = document.querySelector('.close_tab1');
+let closeView2 = document.querySelector('.close_tab2');
 
 window.onload = (event) => {
      body[0].style.width = '62px';     
@@ -24,9 +25,25 @@ window.onload = (event) => {
       forSvg.style.display = 'none'; 
       forSvg1.style.display ='none'; 
       forSvg2.style.display = 'none';      
+      closeView.style.display = 'none';     
 };
 
+closeView.addEventListener('click', (event)=>{
+      event.preventDefault()
+      body[0].style.width = '62px';
+      closeView.style.display = 'none';
+      //grid1.replaceChildren();      
+      grid1.style.visibility = 'hidden';      
+      });
+closeView2.addEventListener('click', (event)=>{
+      event.preventDefault()
+      body[0].style.width = '62px'; 
+      closeView.style.display = 'none';      
+      window.open('', '_self', '');
+      window.close();
+      });
 
+//Global Variables
 let gen_uid = [];
 let gen_user = [];
 let gen_usernames = [];
@@ -183,8 +200,8 @@ team.addEventListener('click', (event)=>{
  	wordo.style.color = '#018749';
  	wordo.textContent = 'Dowell Team';
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
- 	descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/';
- 	
+ 	//descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/';
+    descLink.src = 'http://100014.pythonanywhere.com';
     descLink.height = '700px'; 	
  	descLink.width = '270px';
     descLink.loading = 'lazy';
@@ -200,9 +217,11 @@ team.addEventListener('click', (event)=>{
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';    
     grid1.style.overflow = 'scroll';
-    body[0].style.width = '350px'; 
-    //body[0].style.backgroundColor='beige';
+    grid1.style.overflowX= 'hidden';
+    body[0].style.width = '350px';     
     body[0].style.backgroundColor='#ecf5ee';
+    closeView.style.display = 'block'; 
+    closeView2.style.display = 'block'; 
 
  }, {once : true});   
 
@@ -235,33 +254,42 @@ prod.addEventListener('click', (event)=>{
     grid1.appendChild(list);
        
     let appendSubDiv = document.querySelector('.subDiv');
-    appendSubDiv.innerHTML = '<br><br><h7 style="color:#018749; font-family:Courier New;background-color:#ecf5ee;width:20px border-radius:60px;"><b>Request May Take a Little While, Please Wait.</b></h7>';                        
-    //appendSubDiv.style.display = 'grid';    
+    //appendSubDiv.innerHTML = '<br><br><h7 style="color:#018749; font-family:Courier New;background-color:#ecf5ee;width:20px border-radius:60px;"><b>Request May Take a Little While, Please Wait.</b></h7>';                        
+    
+    //appendSubDiv.style.display = 'flex';
+    //appendSubDiv.style.flexFlow = 'row wrap';      
+    appendSubDiv.style.display = 'grid';
+    appendSubDiv.style.gridTemplateColumns = '30% 30% 30%';
+        
+
     fetch('https://100092.pythonanywhere.com/product/get-all-data')
     .then(resp=> resp.json()).then(datar=> {
             let htmlString = '';            
             if(appendSubDiv.childNodes.length === 0){
                 loader.style.display = 'block';                
-            }
-                    
-            datar.normal.data[0].map((pdct)=> {                                
-                htmlString += ` 
-                            <a href='${pdct.product_url}' target='_blank' style='display:flex; margin:1px;justify-content: center; align-items: center;'>
-                               ${pdct.product_logo}
-                            </a>
-                            <a href='${pdct.product_url}' target='_blank' style='display:flex;justify-content: center; align-items: center;'>
-                                <small style="font-size: 12px; font-family:Courier New, monospace; color: red; margin:10px">
-                                <b>${pdct.product_name}</b></small>`                
-            })//grid-column: 2 / 7  // style='grid-column: 2 / 7;
+            }                    
+            datar.normal.data[0].map((pdct)=> {                                                              
+                htmlString += ` <div  style='margin-top: 20px;' >                                                                                
+                                    <a href='${pdct.product_url}' target='_blank' style='display:flex;'>                                
+                                       ${pdct.product_logo}
+                                    </a>                                                                                               
+                                    <a href='${pdct.product_url}' target='_blank'>
+                                    <small style="font-size: 12px; font-family:Courier New, monospace; color: red;">
+                                    <b>${pdct.product_name}</b></small>
+                                    </a>                            
+                                </div>`                
+            })
             appendSubDiv.innerHTML = htmlString;               
             loader.style.display = 'none';
-    }); // style='grid-column: 1 / 2;  
+    }); 
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
-    body[0].style.width = '350px';
-    //body[0].style.backgroundColor='beige';
-    body[0].style.backgroundColor='#ecf5ee';    
+    grid1.style.overflowX= 'hidden';
+    body[0].style.width = '350px';    
+    body[0].style.backgroundColor='#ecf5ee';
+    closeView.style.display = 'block'; 
+    closeView2.style.display = 'block';     
     
 }, {once : true});
 
@@ -298,7 +326,10 @@ chat.addEventListener('click', (event)=>{
   grid2.style.backgroundColor = 'transparent';
   body[0].style.width = '350px';
   //body[0].style.backgroundColor='beige';
-  body[0].style.backgroundColor='#ecf5ee';  
+  body[0].style.backgroundColor='#ecf5ee';
+  grid1.style.overflowX= 'hidden';
+  closeView.style.display = 'block'; 
+  closeView2.style.display = 'block';  
  
 
   //***************Another Layer***************
@@ -332,9 +363,12 @@ chat.addEventListener('click', (event)=>{
                 grid1.style.visibility = 'visible';
                 grid2.style.backgroundColor = 'transparent';
                 grid1.style.overflow = 'scroll';
+                grid1.style.overflowX= 'hidden';
                 body[0].style.width = '350px'; 
                 //body[0].style.backgroundColor='beige';
                 body[0].style.backgroundColor='#ecf5ee';
+                closeView.style.display = 'block'; 
+                closeView2.style.display = 'block'; 
                 //HideScrollbar(); 	  
       
             }, {once : true});  
@@ -473,9 +507,12 @@ notif.addEventListener('click', (event)=>{
     grid1.style.visibility = 'visible';
     grid2.style.backgroundColor = 'transparent';
     grid1.style.overflow = 'scroll';
+    grid1.style.overflowX= 'hidden';
     body[0].style.width = '350px';
     //body[0].style.backgroundColor='beige';
     body[0].style.backgroundColor='#ecf5ee';
+    closeView.style.display = 'block'; 
+    closeView2.style.display = 'block'; 
     
         
         }, {once : true});
@@ -491,6 +528,95 @@ notif.addEventListener('click', (event)=>{
         .then((data)=> {console.log(`Here's the data: ${data}, All's Good`)}) 
         btx.innerHTML = 'Already Read'
  }
+
+user_details.addEventListener('click', (event)=>{
+    event.preventDefault()
+    grid1.replaceChildren()
+
+        chrome.storage.sync.set({ key: save_username.toString() }).then(() => {
+          //console.log("Username Identified: " + save_username.toString());
+        });
+    
+    let divy = document.createElement('center');
+    let loader = document.createElement('div');
+    let brk2 = document.createElement('br');
+    let brk4 = document.createElement('br');
+    let wordo = document.createElement('h2');
+    let wordoo = document.createElement('p');        
+    let brk = document.createElement('br');       
+    let descLink = document.createElement('a'); 
+    let btn = document.createElement('button'); 
+
+    chrome.storage.sync.get(["key"]).then((result) => {        
+    //if(save_username.length === 0){
+        if(result.key.length === 0){
+
+        wordo.style.color = '#018749';
+        wordo.textContent = 'Login';
+        wordoo.style.color = 'red';        
+        wordoo.textContent = 'Only Logged In Users Can See Details'
+        wordoo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
+        descLink.target = '_blank';        
+        descLink.href = 'http://100014.pythonanywhere.com';
+        descLink.textContent = 'Click To Login';        
+        
+        btn.height = '20px';
+        btn.className = 'chat-btn';
+        btn.style.marginTop = '50px';
+        btn.style.marginBottom = '50px';
+        btn.style.marginRight = '70px';
+        btn.style.marginLeft = '70px';
+        btn.style.borderRadius = '6px'; 
+        btn.style.width = '120px';                       
+
+        divy.appendChild(brk2);
+        divy.appendChild(wordo);                
+        divy.appendChild(wordoo);
+        btn.appendChild(descLink);            
+        list.appendChild(divy);
+        list.appendChild(btn);
+        grid1.appendChild(list); 
+
+        grid1.style.visibility = 'visible';
+        grid2.style.backgroundColor = 'transparent';
+        grid1.style.overflow = 'scroll';
+        grid1.style.overflowX= 'hidden';
+        body[0].style.width = '350px';         
+        body[0].style.backgroundColor='#ecf5ee';    
+    }    
+    else {
+        wordo.style.color = '#018749';
+        wordo.textContent = 'User Details';
+        wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
+        wordoo.style.color = '#018749';
+        wordoo.textContent = `${result.key}'s Details`;
+        wordoo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
+        
+        loader.className = 'loader';
+        loader.style.display = 'block';    
+
+        divy.appendChild(brk2);        
+        divy.appendChild(wordo);    
+        divy.appendChild(wordoo); 
+        divy.appendChild(brk4);           
+        divy.appendChild(brk);        
+        list.appendChild(divy);        
+        grid1.appendChild(list); 
+
+        grid1.style.visibility = 'visible';
+        grid2.style.backgroundColor = 'transparent';
+        grid1.style.overflow = 'scroll';
+        grid1.style.overflowX= 'hidden';
+        body[0].style.width = '350px'; 
+        //body[0].style.backgroundColor='beige';
+        body[0].style.backgroundColor='#ecf5ee';
+        closeView.style.display = 'block'; 
+        closeView2.style.display = 'block'; 
+        }
+        });
+        
+
+}, {once : true});
 
 
 enter.addEventListener('click', (event)=>{
@@ -512,7 +638,9 @@ enter.addEventListener('click', (event)=>{
     let wordoo = document.createElement('p');        
     let brk = document.createElement('br');       
     let descLink = document.createElement('a'); 
-    let btn = document.createElement('button'); 
+    let btn = document.createElement('button');
+    let anchor_logout = document.createElement('a');
+    let btn_logout = document.createElement('button');
 
     //let secondDivEle = document.createElement('div');
     chrome.storage.sync.get(["key"]).then((result) => {        
@@ -548,9 +676,11 @@ enter.addEventListener('click', (event)=>{
         grid1.style.visibility = 'visible';
         grid2.style.backgroundColor = 'transparent';
         grid1.style.overflow = 'scroll';
-        body[0].style.width = '350px'; 
-        //body[0].style.backgroundColor='beige';
-        body[0].style.backgroundColor='#ecf5ee';    
+        grid1.style.overflowX= 'hidden';
+        body[0].style.width = '350px';         
+        body[0].style.backgroundColor='#ecf5ee';
+        closeView.style.display = 'block'; 
+        closeView2.style.display = 'block';    
     }    
     else {
         wordo.style.color = '#018749';
@@ -559,7 +689,10 @@ enter.addEventListener('click', (event)=>{
         wordoo.style.color = '#018749';
         wordoo.textContent = `Welcome ${result.key}! You're logged in.`;
         wordoo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
-        
+        anchor_logout.href = 'https://100093.pythonanywhere.com/logout';        
+        anchor_logout.target= '_blank'
+        btn_logout.textContent = 'Log Out';
+
         loader.className = 'loader';
         loader.style.display = 'block';    
 
@@ -567,18 +700,25 @@ enter.addEventListener('click', (event)=>{
         divy.appendChild(wordo);    
         divy.appendChild(wordoo); 
         divy.appendChild(brk4);           
-        divy.appendChild(brk);        
+        divy.appendChild(brk); 
+
+        anchor_logout.appendChild(btn_logout);
+        divy.appendChild(anchor_logout);
+
         list.appendChild(divy);        
         grid1.appendChild(list); 
 
         grid1.style.visibility = 'visible';
         grid2.style.backgroundColor = 'transparent';
         grid1.style.overflow = 'scroll';
-        body[0].style.width = '350px'; 
-        //body[0].style.backgroundColor='beige';
+        grid1.style.overflowX= 'hidden';
+        body[0].style.width = '350px';         
         body[0].style.backgroundColor='#ecf5ee';
+        closeView.style.display = 'block'; 
+        closeView2.style.display = 'block'; 
         }
         });
         
 
 }, {once : true});
+

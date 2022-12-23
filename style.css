@@ -1,5 +1,5 @@
 html{
-	scroll-behavior: smooth;
+	scroll-behavior: smooth;    
 	}
 
 body{
@@ -41,7 +41,7 @@ body{
 
  			float: right;
  			
- 			overflow: hidden; 
+ 			overflow: hidden; overflow-x: hidden;
  			/*box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;*/
 }
 #grid1{
@@ -72,20 +72,23 @@ body{
 	  /*margin-top: -28px;*/
 
   	/*grid-column-gap: 300px;
-  	grid-row-gap: 15px;*/
+  	  grid-row-gap: 15px;*/
 
   	/*float: right;*/
 
 } 
 
 
-svg, img {
+#svg1, #svg2, #svg3, #svg4, #svg5, #svg6, #svg7, img {
       float: right;
       height: 50px;
       width: auto; 
 
-          
-      /*margin-bottom: 20px;*/
+    background-color: white;
+    border-radius: 15px;
+
+      
+      /*margin-bottom: 2px;*/
    }
 
 #forImg:hover{
