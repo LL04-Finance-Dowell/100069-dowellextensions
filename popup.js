@@ -31,8 +31,7 @@ window.onload = (event) => {
 closeView.addEventListener('click', (event)=>{
       event.preventDefault()
       body[0].style.width = '62px';
-      closeView.style.display = 'none';
-      //grid1.replaceChildren();      
+      closeView.style.display = 'none';           
       grid1.style.visibility = 'hidden';      
       });
 closeView2.addEventListener('click', (event)=>{
@@ -106,39 +105,11 @@ chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
    }); 
 
 
-/*
-chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
-        fetch('http://100092.pythonanywhere.com/api/get-product/')
-        .then(resp=> resp.json())
-        .then(data=> {            
-            data.map(function(notif){                            
-                    gen_usernames.push(notif.username);
-                    let ems = [...gen_usernames].filter((c) => c).map((c) => c);
-                    //console.log(`----${ems}`); 
-                        for(const user of ems){
-                           chrome.storage.local.get(["key"]).then((result) => {                                
-                                if(user === result.key && (!notif.seen)){                                                                        
-                                    gen_uid.push(notif.uid);
-                                    console.log(`uids:: ${gen_uid}`);
-                               } }) 
-                       }  
-            })                                    
-        })                
-}); 
-*/
-
-
-/*
-chrome.storage.local.get(["key"]).then((result) => {
-                      console.log("Value currently is " + result.key);
-                    }); 
-*/
-
 //For Notification Tab
 chrome.tabs.query({windowId: chrome.windows.WINDOW_ID_CURRENT}, (tabs) => {
         let store_tabs = [];
         let store_sessionID = [];
-        //Get all urls of opened tabs and get the one with 'sessionID, if any'
+        //Read all urls of opened tabs and get the one with 'sessionID, if any'
         for(let i = 0; i < tabs.length; i++) {                                        
                     store_tabs.push(tabs[i].url);                    
         }         
@@ -200,9 +171,9 @@ team.addEventListener('click', (event)=>{
  	wordo.style.color = '#018749';
  	wordo.textContent = 'Dowell Team';
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
- 	//descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/';
-    descLink.src = 'http://100014.pythonanywhere.com';
-    descLink.height = '700px'; 	
+ 	descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/#?session_id=';
+    //descLink.src = 'http://100014.pythonanywhere.com';
+    descLink.height = '780px'; 	
  	descLink.width = '270px';
     descLink.loading = 'lazy';
 
@@ -255,11 +226,9 @@ prod.addEventListener('click', (event)=>{
        
     let appendSubDiv = document.querySelector('.subDiv');
     //appendSubDiv.innerHTML = '<br><br><h7 style="color:#018749; font-family:Courier New;background-color:#ecf5ee;width:20px border-radius:60px;"><b>Request May Take a Little While, Please Wait.</b></h7>';                        
-    
-    //appendSubDiv.style.display = 'flex';
-    //appendSubDiv.style.flexFlow = 'row wrap';      
+     
     appendSubDiv.style.display = 'grid';
-    appendSubDiv.style.gridTemplateColumns = '30% 30% 30%';
+    appendSubDiv.style.gridTemplateColumns = '33% 33% 33%';
         
 
     fetch('https://100092.pythonanywhere.com/product/get-all-data')
@@ -268,18 +237,27 @@ prod.addEventListener('click', (event)=>{
             if(appendSubDiv.childNodes.length === 0){
                 loader.style.display = 'block';                
             }                    
-            datar.normal.data[0].map((pdct)=> {                                                              
-                htmlString += ` <div  style='margin-top: 20px;' >                                                                                
-                                    <a href='${pdct.product_url}' target='_blank' style='display:flex;'>                                
-                                       ${pdct.product_logo}
+            datar.normal.data[0].map((pdct)=> {
+
+                const divContainer = document.createElement('div');
+
+                divContainer.innerHTML = pdct.product_logo;
+
+                const svgs = divContainer.getElementsByTagName('svg');
+                svgs[0].setAttribute('height', "100");
+                svgs[0].setAttribute('width', "100");
+            
+                htmlString += `<div>                                                                         
+                                    <a class="product" href='${pdct.product_url}' target='_blank' style='display:flex;'>                                
+                                       ${divContainer.innerHTML}
                                     </a>                                                                                               
                                     <a href='${pdct.product_url}' target='_blank'>
                                     <small style="font-size: 12px; font-family:Courier New, monospace; color: red;">
                                     <b>${pdct.product_name}</b></small>
-                                    </a>                            
-                                </div>`                
-            })
-            appendSubDiv.innerHTML = htmlString;               
+                                    </a> 
+                                    </div>`           
+            })           
+            appendSubDiv.innerHTML = htmlString;             
             loader.style.display = 'none';
     }); 
     grid1.style.visibility = 'visible';
@@ -433,7 +411,7 @@ notif.addEventListener('click', (event)=>{
                             <small><code>${cleanDate}</code></small><br>
                             <input type="hidden" value=${notif.uid} class="secret_uid" id=item_${getUidLength++}/>
                             <button class='btx'>Mark as Read</button>
-                            <hr width='180px'></small></div>`                            
+                            </small><br><br></div><br>`                            
                             break 
 
                            
