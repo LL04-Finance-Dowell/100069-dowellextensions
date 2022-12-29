@@ -1,7 +1,7 @@
 {
   "name": "Dowell UX Living Lab",
   "description": "Extension to manage your UX LivingLab account. It comes with options like notification, login/logout, chat, logs, and setting.",
-  "version": "1.113",
+  "version": "1.114",
   "icons": {
      "16": "/images/16.png",
      "48": "/images/48.png",
@@ -13,12 +13,9 @@
     "default_popup": "popup.html",
     "default_title": "Manage Your UX Living Lab Account"
   },
-  "background": {
-      "scripts": [
-        "background.js"        
-      ],
-      "persistent": false
-    },
+    "background": {
+      "service_worker": "background.js"
+  },
   "content_scripts": [{
     "css": ["style.css"],
     "js": ["popup.js"],

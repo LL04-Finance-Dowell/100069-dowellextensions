@@ -416,7 +416,7 @@ notif.addEventListener('click', (event)=>{
 
                            
                 }}
-             })
+             })//map statment closes here
                 
                 /*document.addEventListener('DOMContentLoaded', function () {
                 checkbox.addEventListener('CheckboxStateChange', changeHandler);
@@ -439,26 +439,22 @@ notif.addEventListener('click', (event)=>{
             }            
             loader.style.display = 'none';
                         
-            window.btx = document.querySelector('.btx');
-            let secure_uid = document.querySelector('.secret_uid'); 
-                        
-           /* for(i=0;i<getUidLength; i++){
-                var item_i = document.querySelector(`#item_${i}`);
-                console.log(item_i.value);
-            }*/
-
-
-            btx.addEventListener('click', (event)=>{
-                event.preventDefault()
-                changeHandler(secure_uid)
-                })
+            window.btx = document.querySelectorAll('.btx');
+            let secure_uid = document.querySelectorAll('.secret_uid'); 
             
-            
+            btx.forEach(addListener);  
+
+            function addListener(data, index){
+                console.log(data);                
+                btx[index].addEventListener('click', (event)=>{
+                    event.preventDefault()
+                    changeHandler(secure_uid[index], index)
+                    })
+
+            };                   
 
 
-
-
-    })
+    })//then statement closes here
     }
     else {
         let wordoo = document.createElement('h4');
@@ -495,8 +491,8 @@ notif.addEventListener('click', (event)=>{
         
         }, {once : true});
 
- function changeHandler(secure_uid){ 
-        let getValue = secure_uid.value;
+ function changeHandler(process_uid, index){ 
+        let getValue = process_uid.value;
         console.log(getValue);
         fetch('http://100092.pythonanywhere.com/api/get-product/',
         {   method:'PUT',
@@ -504,8 +500,10 @@ notif.addEventListener('click', (event)=>{
             body: JSON.stringify({'uid':`${getValue}`})})
         .then(res => res.json())
         .then((data)=> {console.log(`Here's the data: ${data}, All's Good`)}) 
-        btx.innerHTML = 'Already Read'
+        btx[index].innerHTML = '<b>Already Read</b>'
  }
+
+
 
 user_details.addEventListener('click', (event)=>{
     event.preventDefault()
