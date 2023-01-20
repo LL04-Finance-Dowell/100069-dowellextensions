@@ -49,6 +49,8 @@ body{
     height: 410px;
     visibility: hidden;
     border-radius: 5% 0px 0px 5%;
+
+    /*width: 100%;*/
     }
 
 #grid2 {

@@ -18,14 +18,49 @@ let forSvg2 = document.querySelector('.SVGBadge-number');
 let closeView = document.querySelector('.close_tab1');
 let closeView2 = document.querySelector('.close_tab2');
 
-window.onload = (event) => {
+
+//Clean & efficient alternative to Get Session ID  
+let cookieArray = [];
+function logCookies(cookies) {
+  for (const cookie of cookies) {    
+    cookieArray.push(cookie.value)    
+    chrome.storage.sync.set({ key: cookieArray[0]}).then(() => {
+                            console.log(`Magic Cookie Set`);
+                            });
+  }
+  console.log(`There is (are) ${cookieArray.length} stored cookies with the name 'sessionid'!`);
+} 
+// API to read all cookies stored in browser with the name 'sessionid'
+chrome.cookies
+  .getAll({
+    name: "sessionid",
+  })
+  .then(logCookies);
+
+//Retrieve Cookie AKA Session ID
+chrome.storage.sync.get(["key"]).then((response) => {
+    console.log("***Magic Cookie is " + response.key +"***");
+        });
+
+
+
+
+
+
+
+
+
+
+
+window.onload = (event) => {    
      body[0].style.width = '62px';     
      body[0].style.backgroundColor = '#f2f3f4';        
      console.log('PAGE DID LOAD');
       forSvg.style.display = 'none'; 
       forSvg1.style.display ='none'; 
       forSvg2.style.display = 'none';      
-      closeView.style.display = 'none';     
+      closeView.style.display = 'none';
+      //console.log(window.location.origin);     
 };
 
 closeView.addEventListener('click', (event)=>{
@@ -173,6 +208,7 @@ team.addEventListener('click', (event)=>{
     wordo.style.fontFamily = 'Andale Mono, monospace, Courier New, monospace';
  	descLink.src = 'https://ll07-team-dowell.github.io/DowellJobPortal/#?session_id=';
     //descLink.src = 'http://100014.pythonanywhere.com';
+    //descLink.referrerpolicy="no-referrer";
     descLink.height = '780px'; 	
  	descLink.width = '270px';
     descLink.loading = 'lazy';
