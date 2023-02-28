@@ -75,11 +75,11 @@ Response-404
 | 10009      | Scales                  |
 | 10010      | Customer experience     |
 
-### Notification Service
+## Notification Service
 
 api_url = `https://100092.pythonanywhere.com/api/`
 
-## Notification Api
+### Notification Api
 
 _POST_ to `get-notification/`
 
